@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesión 2: Modelo OSI y TCP/IP - Curso de Cisco Packet Tracer</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/session.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Curso de Cisco Packet Tracer</h1>
+            <p>Sesión 2: Modelo OSI y TCP/IP</p>
+        </div>
+    </header>
+
+    <nav class="session-nav">
+        <div class="container">
+            <a href="../index.html" class="nav-home">Inicio</a>
+            <span class="nav-current">Sesión 2</span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="session-content">
+            <h2>Modelo OSI y TCP/IP</h2>
+            
+            <div class="learning-objectives">
+                <h3>Objetivos de Aprendizaje</h3>
+                <ul>
+                    <li>Comprender la estructura y propósito del modelo OSI</li>
+                    <li>Entender las capas del modelo TCP/IP</li>
+                    <li>Identificar las diferencias entre los modelos OSI y TCP/IP</li>
+                    <li>Practicar la encapsulación de datos en Packet Tracer</li>
+                </ul>
+            </div>
+
+            <article class="theory">
+                <h3>El Modelo OSI</h3>
+                <p>El Modelo OSI (Open Systems Interconnection) es un marco de referencia para la comunicación entre sistemas informáticos. Está dividido en 7 capas, cada una con funciones específicas:</p>
+                
+                <table>
+                    <tr>
+                        <th>Capa</th>
+                        <th>Nombre</th>
+                        <th>Función Principal</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>Aplicación</td>
+                        <td>Interfaz entre la aplicación y la red</td>
+                        <td>HTTP, FTP, SMTP</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Presentación</td>
+                        <td>Traducción, encriptación, compresión</td>
+                        <td>JPEG, MPEG, SSL</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Sesión</td>
+                        <td>Establece, gestiona y termina conexiones</td>
+                        <td>NetBIOS, RPC</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Transporte</td>
+                        <td>Transferencia confiable de datos</td>
+                        <td>TCP, UDP</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Red</td>
+                        <td>Enrutamiento y direccionamiento lógico</td>
+                        <td>IP, ICMP, ARP</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Enlace de Datos</td>
+                        <td>Acceso al medio y control de flujo</td>
+                        <td>Ethernet, PPP, Switch</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Física</td>
+                        <td>Transmisión de bits a través del medio</td>
+                        <td>Cable, Hub, Repetidor</td>
+                    </tr>
+                </table>
+
+                <h3>El Modelo TCP/IP</h3>
+                <p>El modelo TCP/IP es el estándar actual de Internet y consta de 4 capas:</p>
+                <ol>
+                    <li><strong>Aplicación:</strong> Combina las capas de aplicación, presentación y sesión del modelo OSI.</li>
+                    <li><strong>Transporte:</strong> Equivalente a la capa de transporte del modelo OSI.</li>
+                    <li><strong>Internet:</strong> Equivalente a la capa de red del modelo OSI.</li>
+                    <li><strong>Acceso a la Red:</strong> Combina las capas de enlace de datos y física del modelo OSI.</li>
+                </ol>
+            </article>
+
+            <article class="practice">
+                <h3>Práctica: Visualización de Paquetes en Packet Tracer</h3>
+                
+                <div class="exercise">
+                    <h4>Ejercicio 1: Simulación de Comunicación</h4>
+                    <p>En este ejercicio, crearás una red simple y observarás cómo viajan los paquetes a través de las diferentes capas.</p>
+                    
+                    <ol>
+                        <li>Crea una red con dos computadoras conectadas a un switch.</li>
+                        <li>Asigna direcciones IP a ambas computadoras (ejemplo: 192.168.1.1 y 192.168.1.2).</li>
+                        <li>Haz clic en "Simulation" en la esquina inferior derecha de Packet Tracer.</li>
+                        <li>Selecciona un paquete ICMP (ping) en la lista de filtros.</li>
+                        <li>Envía un ping de una computadora a la otra.</li>
+                        <li>Observa cómo se encapsula el paquete a través de las diferentes capas.</li>
+                    </ol>
+                    
+                    <div class="solution">
+                        <button class="show-solution">Mostrar Explicación</button>
+                        <div class="solution-content">
+                            <p>Al enviar un ping, podrás observar cómo el paquete viaja a través de las diferentes capas:</p>
+                            <ol>
+                                <li><strong>Capa de Aplicación:</strong> El comando ping inicia el proceso.</li>
+                                <li><strong>Capa de Transporte:</strong> Se crea un segmento con el protocolo ICMP.</li>
+                                <li><strong>Capa de Red:</strong> Se añade la dirección IP de origen y destino.</li>
+                                <li><strong>Capa de Enlace de Datos:</strong> Se añaden las direcciones MAC.</li>
+                                <li><strong>Capa Física:</strong> Los bits se transmiten por el cable.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 2: Análisis de Paquetes</h4>
+                    <p>Analiza los paquetes en tránsito para entender mejor el proceso de encapsulamiento.</p>
+                    
+                    <ol>
+                        <li>En el modo de simulación, haz clic en "Capture/Forward" para avanzar paso a paso.</li>
+                        <li>Selecciona un paquete en tránsito y haz clic en "Inspect".</li>
+                        <li>Observa la información en cada capa del modelo OSI.</li>
+                        <li>Compara la información de las capas en diferentes momentos de la transmisión.</li>
+                    </ol>
+                    
+                    <div class="solution">
+                        <button class="show-solution">Preguntas de Análisis</button>
+                        <div class="solution-content">
+                            <p>Responde las siguientes preguntas basadas en tu observación:</p>
+                            <ol>
+                                <li>¿Qué información contiene el encabezado de la capa de red?</li>
+                                <li>¿Cómo cambia la información de la capa de enlace de datos en diferentes puntos de la red?</li>
+                                <li>¿Qué diferencias observas entre el paquete de solicitud y el de respuesta?</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <h3>Resumen de la Sesión</h3>
+            <p>En esta sesión has aprendido sobre los modelos OSI y TCP/IP, sus capas y funciones. Has practicado la visualización de paquetes en Packet Tracer, lo que te ha permitido ver cómo se encapsulan los datos a través de las diferentes capas de red.</p>
+
+            <div class="navigation-buttons">
+                <a href="sesion1.html" class="btn btn-prev">← Sesión Anterior</a>
+                <a href="sesion3.html" class="btn btn-next">Siguiente Sesión →</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; JMGV-PTEL <span id="current-year">2025</span>. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/session.js"></script>
+</body>
+</html>

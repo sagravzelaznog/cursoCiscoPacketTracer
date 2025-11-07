@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesión 4: Direccionamiento IP y Subredes - Curso de Cisco Packet Tracer</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/session.css">
+    <style>
+        .binary-ip {
+            font-family: 'Courier New', monospace;
+            letter-spacing: 2px;
+            background: #f0f0f0;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        .subnet-calculator {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .subnet-calculator input[type="text"] {
+            padding: 5px;
+            margin: 5px 0;
+            width: 100px;
+        }
+        .subnet-calculator button {
+            padding: 5px 10px;
+            background: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .subnet-calculator button:hover {
+            background: #004080;
+        }
+        .subnet-result {
+            margin-top: 10px;
+            padding: 10px;
+            background: #e8f4f8;
+            border-radius: 3px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Curso de Cisco Packet Tracer</h1>
+            <p>Sesión 4: Direccionamiento IP y Subredes</p>
+        </div>
+    </header>
+
+    <nav class="session-nav">
+        <div class="container">
+            <a href="../index.html" class="nav-home">Inicio</a>
+            <span class="nav-current">Sesión 4</span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="session-content">
+            <h2>Direccionamiento IP y Subredes</h2>
+            
+            <div class="learning-objectives">
+                <h3>Objetivos de Aprendizaje</h3>
+                <ul>
+                    <li>Comprender el direccionamiento IPv4</li>
+                    <li>Calcular subredes y máscaras de red</li>
+                    <li>Configurar direcciones IP en dispositivos de red</li>
+                    <li>Resolver problemas de direccionamiento IP</li>
+                </ul>
+            </div>
+
+            <article class="theory">
+                <h3>Fundamentos de Direccionamiento IPv4</h3>
+                
+                <p>Una dirección IPv4 es un número de 32 bits que identifica de manera única un dispositivo en una red. Se representa en formato decimal punteado, por ejemplo: <code>192.168.1.1</code>.</p>
+                
+                <h4>Estructura de una dirección IP</h4>
+                <p>Una dirección IP consta de dos partes:</p>
+                <ul>
+                    <li><strong>Porción de red:</strong> Identifica la red a la que pertenece el dispositivo.</li>
+                    <li><strong>Porción de host:</strong> Identifica el dispositivo específico en la red.</li>
+                </ul>
+                
+                <p>Ejemplo: En la dirección <code>192.168.1.10/24</code> (donde /24 es la máscara de red):</p>
+                <ul>
+                    <li>Porción de red: <code>192.168.1</code></li>
+                    <li>Porción de host: <code>.10</code></li>
+                    <li>Máscara de red: <code>255.255.255.0</code></li>
+                </ul>
+
+                <h4>Clases de Direcciones IP</h4>
+                <table>
+                    <tr>
+                        <th>Clase</th>
+                        <th>Rango</th>
+                        <th>Máscara por defecto</th>
+                        <th>Uso</th>
+                    </tr>
+                    <tr>
+                        <td>A</td>
+                        <td>1.0.0.0 - 126.255.255.255</td>
+                        <td>255.0.0.0</td>
+                        <td>Redes muy grandes</td>
+                    </tr>
+                    <tr>
+                        <td>B</td>
+                        <td>128.0.0.0 - 191.255.255.255</td>
+                        <td>255.255.0.0</td>
+                        <td>Redes medianas</td>
+                    </tr>
+                    <tr>
+                        <td>C</td>
+                        <td>192.0.0.0 - 223.255.255.255</td>
+                        <td>255.255.255.0</td>
+                        <td>Redes pequeñas</td>
+                    </tr>
+                    <tr>
+                        <td>D</td>
+                        <td>224.0.0.0 - 239.255.255.255</td>
+                        <td>N/A</td>
+                        <td>Multicast</td>
+                    </tr>
+                    <tr>
+                        <td>E</td>
+                        <td>240.0.0.0 - 255.255.255.255</td>
+                        <td>N/A</td>
+                        <td>Experimental</td>
+                    </tr>
+                </table>
+
+                <h3>Subredes</h3>
+                <p>El subnetting es la práctica de dividir una red en subredes más pequeñas. Esto se hace tomando prestados bits de la porción de host para crear más redes.</p>
+                
+                <h4>Ventajas del Subnetting</h4>
+                <ul>
+                    <li>Mejora el rendimiento de la red</li>
+                    <li>Reduce la congestión</li>
+                    <li>Mejora la seguridad</li>
+                    <li>Facilita la administración</li>
+                </ul>
+
+                <div class="subnet-calculator">
+                    <h4>Calculadora de Subredes</h4>
+                    <p>Dirección IP: <input type="text" id="ip-address" placeholder="192.168.1.0"></p>
+                    <p>Máscara de red: /<input type="text" id="subnet-bits" placeholder="24" size="2"> o <input type="text" id="subnet-mask" placeholder="255.255.255.0"></p>
+                    <button onclick="calculateSubnet()">Calcular</button>
+                    <div id="subnet-result" class="subnet-result"></div>
+                </div>
+            </article>
+
+            <article class="practice">
+                <h3>Práctica: Configuración de Subredes</h3>
+                
+                <div class="exercise">
+                    <h4>Ejercicio 1: Creación de Subredes</h4>
+                    <p>Divide la red <code>192.168.1.0/24</code> en 4 subredes iguales.</p>
+                    
+                    <ol>
+                        <li>Determina cuántos bits necesitas para crear 4 subredes (2<sup>n</sup> ≥ 4).</li>
+                        <li>Calcula la nueva máscara de red.</li>
+                        <li>Identifica el rango de direcciones para cada subred.</li>
+                    </ol>
+                    
+                    <div class="solution">
+                        <button class="show-solution">Mostrar Solución</button>
+                        <div class="solution-content">
+                            <p>Para crear 4 subredes necesitamos 2 bits (2² = 4).</p>
+                            <p>Máscara original: 255.255.255.0 (/24)</p>
+                            <p>Nueva máscara: 255.255.255.192 (/26)</p>
+                            <p>Las subredes serían:</p>
+                            <ol>
+                                <li>192.168.1.0/26 (rango: 192.168.1.1 - 192.168.1.62)</li>
+                                <li>192.168.1.64/26 (rango: 192.168.1.65 - 192.168.1.126)</li>
+                                <li>192.168.1.128/26 (rango: 192.168.1.129 - 192.168.1.190)</li>
+                                <li>192.168.1.192/26 (rango: 192.168.1.193 - 192.168.1.254)</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 2: Configuración en Packet Tracer</h4>
+                    <p>Configura dos subredes diferentes en Packet Tracer.</p>
+                    
+                    <ol>
+                        <li>Crea una topología con dos switches y un router.</li>
+                        <li>Configura el router con dos interfaces en diferentes subredes.</li>
+                        <li>Asigna direcciones IP a los dispositivos en cada subred.</li>
+                        <li>Verifica la conectividad entre las subredes.</li>
+                    </ol>
+                    
+                    <div class="solution">
+                        <button class="show-solution">Comandos de Configuración</button>
+                        <div class="solution-content">
+                            <p>Configuración del router:</p>
+                            <pre><code>enable
+configure terminal
+interface GigabitEthernet0/0
+ip address 192.168.1.1 255.255.255.192
+no shutdown
+exit
+interface GigabitEthernet0/1
+ip address 192.168.1.65 255.255.255.192
+no shutdown
+exit
+ip route 0.0.0.0 0.0.0.0 [dirección del router de salida]
+end
+copy running-config startup-config
+</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <h3>Resumen de la Sesión</h3>
+            <p>En esta sesión has aprendido sobre direccionamiento IPv4, clases de direcciones IP, y cómo crear y configurar subredes. Has practicado el cálculo de subredes y la configuración de dispositivos en diferentes subredes.</p>
+
+            <div class="navigation-buttons">
+                <a href="sesion3.html" class="btn btn-prev">← Sesión Anterior</a>
+                <a href="sesion5.html" class="btn btn-next">Siguiente Sesión →</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; JMGV-PTEL <span id="current-year">2025</span>. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/session.js"></script>
+    <script>
+        function calculateSubnet() {
+            const ipAddress = document.getElementById('ip-address').value;
+            let subnetBits = document.getElementById('subnet-bits').value;
+            const subnetMask = document.getElementById('subnet-mask').value;
+            
+            // Si se proporciona máscara de red, convertir a notación CIDR
+            if (subnetMask && !subnetBits) {
+                // Lógica para convertir máscara a notación CIDR
+                const octets = subnetMask.split('.').map(Number);
+                const binary = octets.map(octet => {
+                    return parseInt(octet, 10).toString(2).padStart(8, '0');
+                }).join('');
+                subnetBits = (binary.match(/1/g) || []).length;
+            }
+            
+            // Validar entrada
+            if (!ipAddress || !subnetBits) {
+                alert('Por favor ingresa una dirección IP y máscara de red válidas.');
+                return;
+            }
+            
+            // Aquí iría la lógica para calcular la subred
+            // Por ahora, mostramos un mensaje de ejemplo
+            const result = document.getElementById('subnet-result');
+            result.style.display = 'block';
+            result.innerHTML = `
+                <p><strong>Dirección de red:</strong> ${ipAddress}/${subnetBits}</p>
+                <p><strong>Máscara de red:</strong> ${calculateMask(subnetBits)}</p>
+                <p><strong>Dirección de broadcast:</strong> Calculando...</p>
+                <p><strong>Rango de direcciones utilizables:</strong> Calculando...</p>
+                <p><strong>Número de hosts:</strong> ${Math.pow(2, 32-subnetBits) - 2}</p>
+            `;
+        }
+        
+        function calculateMask(bits) {
+            // Convertir bits a máscara de red
+            let mask = [];
+            for (let i = 0; i < 4; i++) {
+                let n = Math.min(8, Math.max(0, bits - i * 8));
+                mask.push(256 - Math.pow(2, 8 - n));
+            }
+            return mask.join('.');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesión 7: VLANs - Curso de Cisco Packet Tracer</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/session.css">
+    <style>
+        .vlan-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .vlan-table th, .vlan-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .vlan-table th {
+            background-color: #f2f2f2;
+        }
+        .vlan-diagram {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 5px;
+        }
+        .config-box {
+            background: #f0f0f0;
+            border-left: 4px solid #4CAF50;
+            padding: 10px 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            white-space: pre;
+            overflow-x: auto;
+        }
+        .trunk-config {
+            background: #e7f3fe;
+            border-left: 4px solid #2196F3;
+        }
+        .vtp-info {
+            background: #fff3e0;
+            border-left: 4px solid #FF9800;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Curso de Cisco Packet Tracer</h1>
+            <p>Sesión 7: VLANs (Redes de Área Local Virtuales)</p>
+        </div>
+    </header>
+
+    <nav class="session-nav">
+        <div class="container">
+            <a href="../index.html" class="nav-home">Inicio</a>
+            <span class="nav-current">Sesión 7</span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="session-content">
+            <h2>VLANs: Redes de Área Local Virtuales</h2>
+            
+            <div class="learning-objectives">
+                <h3>Objetivos de Aprendizaje</h3>
+                <ul>
+                    <li>Comprender el concepto y beneficios de las VLANs</li>
+                    <li>Aprender a configurar VLANs en switches Cisco</li>
+                    <li>Configurar enlaces troncales (trunks) con 802.1Q</li>
+                    <li>Entender el protocolo VTP (VLAN Trunking Protocol)</li>
+                    <li>Solucionar problemas comunes de VLANs</li>
+                </ul>
+            </div>
+
+            <article class="theory">
+                <h3>¿Qué son las VLANs?</h3>
+                <p>Una VLAN (Virtual Local Area Network) es una subred lógica que agrupa dispositivos de red que están configurados para comunicarse como si estuvieran conectados al mismo dominio de difusión, independientemente de su ubicación física.</p>
+                
+                <h4>Beneficios de las VLANs</h4>
+                <ul>
+                    <li><strong>Segmentación de red:</strong> Mejora el rendimiento al reducir el tamaño de los dominios de difusión.</li>
+                    <li><strong>Seguridad:</strong> Aísla el tráfico entre diferentes departamentos o grupos.</li>
+                    <li><strong>Flexibilidad:</strong> Permite agrupar usuarios por función en lugar de por ubicación física.</li>
+                    <li><strong>Administración simplificada:</strong> Facilita la administración de la red.</li>
+                </ul>
+
+                <h3>Tipos de Puertos en un Switch</h3>
+                <table class="vlan-table">
+                    <tr>
+                        <th>Tipo de Puerto</th>
+                        <th>Descripción</th>
+                        <th>Uso Común</th>
+                    </tr>
+                    <tr>
+                        <td>Acceso (Access)</td>
+                        <td>Pertenece a una sola VLAN</td>
+                        <td>Conexión de dispositivos finales (PCs, impresoras)</td>
+                    </tr>
+                    <tr>
+                        <td>Troncal (Trunk)</td>
+                        <td>Transporta múltiples VLANs</td>
+                        <td>Conexión entre switches o entre switch y router</td>
+                    </tr>
+                    <tr>
+                        <td>Enojo (Voice)</td>
+                        <td>Configuración especial para voz y datos</td>
+                        <td>Conexión de teléfonos IP con PC conectada al teléfono</td>
+                    </tr>
+                </table>
+
+                <h3>Protocolo VTP (VLAN Trunking Protocol)</h3>
+                <div class="vtp-info">
+                    <p>VTP es un protocolo de Cisco que permite la administración centralizada de VLANs en una red de switches.</p>
+                    <ul>
+                        <li><strong>Modos VTP:</strong> Servidor, Cliente y Transparente</li>
+                        <li><strong>Dominio VTP:</strong> Grupo de switches que comparten información de VLANs</li>
+                        <li><strong>Versiones:</strong> V1, V2, V3 (la más reciente)</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="practice">
+                <h3>Práctica: Configuración de VLANs</h3>
+                
+                <div class="exercise">
+                    <h4>Ejercicio 1: Creación de VLANs Básicas</h4>
+                    <p>Configura dos VLANs en un switch y asigna puertos a cada una.</p>
+                    
+                    <ol>
+                        <li>Crea las VLANs 10 (Ventas) y 20 (Marketing).</li>
+                        <li>Asigna los puertos 1-5 a la VLAN 10 y los puertos 6-10 a la VLAN 20.</li>
+                        <li>Verifica la configuración.</li>
+                    </ol>
+                    
+                    <div class="solution">
+                        <button class="show-solution">Mostrar Configuración</button>
+                        <div class="solution-content">
+                            <div class="config-box">enable
+configure terminal
+! Crear VLANs
+vlan 10
+ name Ventas
+exit
+vlan 20
+ name Marketing
+exit
+
+! Asignar puertos a VLAN 10
+interface range fastEthernet 0/1-5
+ switchport mode access
+ switchport access vlan 10
+ no shutdown
+exit
+
+! Asignar puertos a VLAN 20
+interface range fastEthernet 0/6-10
+ switchport mode access
+ switchport access vlan 20
+ no shutdown
+exit
+
+! Verificar configuración
+show vlan brief
+show vlan id 10
+show vlan id 20</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 2: Configuración de Troncales</h4>
+                    <p>Configura un enlace troncal entre dos switches para transportar múltiples VLANs.</p>
+                    
+                    <ol>
+                        <li>Conecta dos switches con un cable cruzado.</li>
+                        <li>Configura el puerto de conexión en ambos switches como troncal.</li>
+                        <li>Verifica la configuración del troncal.</li>
+                    </ol>
+                    
+                    <div class="solution">
+                        <button class="show-solution">Mostrar Configuración</button>
+                        <div class="solution-content">
+                            <p>En ambos switches:</p>
+                            <div class="config-box trunk-config">enable
+configure terminal
+! Seleccionar el puerto de conexión entre switches
+interface fastEthernet 0/24
+! Configurar como troncal
+ switchport mode trunk
+! Especificar las VLANs permitidas (opcional)
+ switchport trunk allowed vlan 10,20
+! Establecer el modo de encapsulación (generalmente negociación automática)
+ switchport trunk encapsulation dot1q
+ no shutdown
+exit
+
+! Verificar configuración del troncal
+show interfaces trunk
+show interfaces fastEthernet 0/24 switchport</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 3: Configuración de VTP</h4>
+                    <p>Configura el protocolo VTP entre dos switches.</p>
+                    
+                    <ol>
+                        <li>Configura un switch como servidor VTP y otro como cliente.</li>
+                        <li>Establece el mismo dominio VTP y contraseña en ambos switches.</li>
+                        <li>Verifica la sincronización de VLANs.</li>
+                    </ol>
+                    
+                    <div class="solution">
+                        <button class="show-solution">Mostrar Configuración</button>
+                        <div class="solution-content">
+                            <p>En el switch servidor:</p>
+                            <div class="config-box">enable
+configure terminal
+vtp domain MIEMPRESA
+vtp password cisco123
+vtp mode server
+vtp version 2
+end
+
+! Verificar configuración VTP
+show vtp status
+show vtp password</div>
+
+                            <p>En el switch cliente:</p>
+                            <div class="config-box">enable
+configure terminal
+vtp domain MIEMPRESA
+vtp password cisco123
+vtp mode client
+vtp version 2
+end
+
+! Verificar sincronización
+show vlan brief
+show vtp status</div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <h3>Solución de Problemas Comunes</h3>
+            <div class="config-box">! Ver estado de las VLANs
+show vlan brief
+
+! Ver configuración de un puerto específico
+show interfaces [interfaz] switchport
+
+! Ver estado de los troncales
+show interfaces trunk
+
+! Ver información VTP
+show vtp status
+show vtp password
+
+! Ver tráfico de difusión por VLAN
+debug sw-vlan vtp events
+debug sw-vlan vlan events</div>
+
+            <h3>Resumen de la Sesión</h3>
+            <p>En esta sesión has aprendido sobre VLANs, su configuración y administración en switches Cisco. Has practicado la creación de VLANs, configuración de puertos de acceso, enlaces troncales y el protocolo VTP para la administración centralizada de VLANs en una red.</p>
+
+            <div class="navigation-buttons">
+                <a href="sesion6.html" class="btn btn-prev">← Sesión Anterior</a>
+                <a href="sesion8.html" class="btn btn-next">Siguiente Sesión →</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; JMGV-PTEL <span id="current-year">2025</span>. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/session.js"></script>
+</body>
+</html>

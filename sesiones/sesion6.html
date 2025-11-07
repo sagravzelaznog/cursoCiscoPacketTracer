@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesión 6: Protocolos de Enrutamiento Dinámico - Curso de Cisco Packet Tracer</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/session.css">
+    <style>
+        .protocol-comparison {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .protocol-comparison th, .protocol-comparison td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .protocol-comparison th {
+            background-color: #f2f2f2;
+        }
+        .rip-metric {
+            background: #f9f9f9;
+            padding: 15px;
+            border-left: 4px solid #4CAF50;
+            margin: 15px 0;
+        }
+        .ospf-area {
+            background: #e7f3fe;
+            padding: 15px;
+            border-left: 4px solid #2196F3;
+            margin: 15px 0;
+        }
+        .eigrp-features {
+            background: #fff3e0;
+            padding: 15px;
+            border-left: 4px solid #FF9800;
+            margin: 15px 0;
+        }
+        .config-box {
+            background: #f0f0f0;
+            border-left: 4px solid #0066cc;
+            padding: 10px 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            white-space: pre;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Curso de Cisco Packet Tracer</h1>
+            <p>Sesión 6: Protocolos de Enrutamiento Dinámico</p>
+        </div>
+    </header>
+
+    <nav class="session-nav">
+        <div class="container">
+            <a href="../index.html" class="nav-home">Inicio</a>
+            <span class="nav-current">Sesión 6</span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="session-content">
+            <h2>Protocolos de Enrutamiento Dinámico</h2>
+            
+            <div class="learning-objectives">
+                <h3>Objetivos de Aprendizaje</h3>
+                <ul>
+                    <li>Comprender los conceptos básicos de los protocolos de enrutamiento dinámico</li>
+                    <li>Configurar y verificar RIP, OSPF y EIGRP</li>
+                    <li>Entender las diferencias entre protocolos de vector distancia y estado de enlace</li>
+                    <li>Solucionar problemas comunes en protocolos de enrutamiento dinámico</li>
+                </ul>
+            </div>
+
+            <article class="theory">
+                <h3>Introducción al Enrutamiento Dinámico</h3>
+                <p>Los protocolos de enrutamiento dinámico permiten a los routers compartir automáticamente información sobre redes remotas. Esto facilita la administración de redes grandes y permite una recuperación automática ante fallos.</p>
+                
+                <h4>Tipos de Protocolos de Enrutamiento</h4>
+                <ol>
+                    <li><strong>Vector Distancia (Distance Vector)</strong>: RIP, IGRP</li>
+                    <li><strong>Estado de Enlace (Link State)</strong>: OSPF, IS-IS</li>
+                    <li><strong>Híbrido</strong>: EIGRP</li>
+                </ol>
+
+                <h4>Comparación de Protocolos</h4>
+                <table class="protocol-comparison">
+                    <tr>
+                        <th>Característica</th>
+                        <th>RIP</th>
+                        <th>OSPF</th>
+                        <th>EIGRP</th>
+                    </tr>
+                    <tr>
+                        <td>Tipo</td>
+                        <td>Vector distancia</td>
+                        <td>Estado de enlace</td>
+                        <td>Híbrido</td>
+                    </tr>
+                    <tr>
+                        <td>Métrica</td>
+                        <td>Número de saltos (máx. 15)</td>
+                        <td>Ancho de banda</td>
+                        <td>Ancho de banda y retardo</td>
+                    </tr>
+                    <tr>
+                        <td>Convergencia</td>
+                        <td>Lenta</td>
+                        <td>Rápida</td>
+                        <td>Muy rápida</td>
+                    </tr>
+                    <tr>
+                        <td>Uso de recursos</td>
+                        <td>Bajo</td>
+                        <td>Alto</td>
+                        <td>Moderado</td>
+                    </tr>
+                    <tr>
+                        <td>Estándar/Propietario</td>
+                        <td>Estándar abierto</td>
+                        <td>Estándar abierto</td>
+                        <td>Propietario de Cisco</td>
+                    </tr>
+                </table>
+
+                <h3>RIP (Routing Information Protocol)</h3>
+                <div class="rip-metric">
+                    <h4>Características de RIP</h4>
+                    <ul>
+                        <li>Métrica basada en conteo de saltos (máximo 15 saltos)</li>
+                        <li>Actualizaciones periódicas cada 30 segundos</li>
+                        <li>Versiones: RIPv1 (sin soporte VLSM) y RIPv2 (con soporte VLSM)</li>
+                        <li>Uso de UDP puerto 520</li>
+                    </ul>
+                </div>
+
+                <h3>OSPF (Open Shortest Path First)</h3>
+                <div class="ospf-area">
+                    <h4>Conceptos Clave de OSPF</h4>
+                    <ul>
+                        <li>Divide la red en áreas para mejorar la escalabilidad</li>
+                        <li>Área 0 (troncal) conecta todas las demás áreas</li>
+                        <li>Usa el algoritmo SPF (Dijkstra) para calcular rutas</li>
+                        <li>Métrica basada en el ancho de banda</li>
+                    </ul>
+                </div>
+
+                <h3>EIGRP (Enhanced Interior Gateway Routing Protocol)</h3>
+                <div class="eigrp-features">
+                    <h4>Características de EIGRP</h4>
+                    <ul>
+                        <li>Protocolo avanzado de Cisco (ahora parcialmente abierto)</li>
+                        <li>Usa DUAL (Diffusing Update Algorithm) para calcular rutas</li>
+                        <li>Métrica compuesta (ancho de banda, retardo, carga, confiabilidad)</li>
+                        <li>Actualizaciones incrementales</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="practice">
+                <h3>Práctica: Configuración de Protocolos de Enrutamiento</h3>
+                
+                <div class="exercise">
+                    <h4>Ejercicio 1: Configuración Básica de RIPv2</h4>
+                    <p>Configura RIPv2 en una topología de tres routers.</p>
+                    
+                    <ol>
+                        <li>Crea una topología con tres routers conectados en cadena.</li>
+                        <li>Configura las direcciones IP en todas las interfaces.</li>
+                        <li>Habilita RIPv2 en todos los routers.</li>
+                        <li>Verifica las tablas de enrutamiento.</li>
+                    </ol>
+                    
+                    <div class="solution">
+                        <button class="show-solution">Mostrar Configuración</button>
+                        <div class="solution-content">
+                            <p>Configuración en cada router:</p>
+                            <div class="config-box">enable
+configure terminal
+router rip
+ version 2
+ network [dirección-red]
+ no auto-summary
+end
+copy running-config startup-config</div>
+
+                            <p>Para verificar:</p>
+                            <div class="config-box">show ip route
+show ip protocols
+debug ip rip</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 2: Configuración de OSPF</h4>
+                    <p>Configura OSPF en la misma topología.</p>
+                    
+                    <ol>
+                        <li>Elimina la configuración de RIP.</li>
+                        <li>Configura OSPF con el ID de proceso 1.</li>
+                        <li>Asigna todas las redes al área 0.</li>
+                        <li>Verifica la adyacencia de vecinos.</li>
+                    </ol>
+                    
+                    <div class="solution">
+                        <button class="show-solution">Mostrar Configuración</button>
+                        <div class="solution-content">
+                            <p>Configuración en cada router:</p>
+                            <div class="config-box">enable
+configure terminal
+router ospf 1
+ network [dirección-red] [wildcard-mask] area 0
+end
+copy running-config startup-config</div>
+
+                            <p>Para verificar:</p>
+                            <div class="config-box">show ip ospf neighbor
+show ip ospf interface
+show ip ospf database</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 3: Configuración de EIGRP</h4>
+                    <p>Configura EIGRP en la misma topología.</p>
+                    
+                    <ol>
+                        <li>Elimina la configuración de OSPF.</li>
+                        <li>Configura EIGRP con el número de sistema autónomo 100.</li>
+                        <li>Habilita EIGRP en todas las interfaces.</li>
+                        <li>Verifica los vecinos EIGRP.</li>
+                    </ol>
+                    
+                    <div class="solution">
+                        <button class="show-solution">Mostrar Configuración</button>
+                        <div class="solution-content">
+                            <p>Configuración en cada router:</p>
+                            <div class="config-box">enable
+configure terminal
+router eigrp 100
+ network [dirección-red] [wildcard-mask]
+ no auto-summary
+eigrp router-id [ID-del-router]
+end
+copy running-config startup-config</div>
+
+                            <p>Para verificar:</p>
+                            <div class="config-box">show ip eigrp neighbors
+show ip eigrp topology
+show ip route eigrp</div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <h3>Resolución de Problemas</h3>
+            <p>Algunos comandos útiles para solucionar problemas en protocolos de enrutamiento dinámico:</p>
+            
+            <div class="config-box">show ip protocols
+show ip route
+debug ip rip
+debug ip ospf events
+debug eigrp packets
+ping [dirección-ip]
+traceroute [dirección-ip]</div>
+
+            <h3>Resumen de la Sesión</h3>
+            <p>En esta sesión has aprendido sobre los diferentes protocolos de enrutamiento dinámico, sus características y cómo configurarlos en routers Cisco. Has practicado la configuración de RIPv2, OSPF y EIGRP en Packet Tracer.</p>
+
+            <div class="navigation-buttons">
+                <a href="sesion5.html" class="btn btn-prev">← Sesión Anterior</a>
+                <a href="sesion7.html" class="btn btn-next">Siguiente Sesión →</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; JMGV-PTEL <span id="current-year">2025</span>. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/session.js"></script>
+</body>
+</html>

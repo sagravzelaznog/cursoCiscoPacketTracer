@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesión 10: Proyecto Final - Curso de Cisco Packet Tracer</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/session.css">
+    <style>
+        .project-section {
+            background: #f9f9f9;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .requirements {
+            background: #e7f3fe;
+            border-left: 4px solid #2196F3;
+        }
+        .evaluation {
+            background: #fff3e0;
+            border-left: 4px solid #FF9800;
+        }
+        .deliverables {
+            background: #f3e5f5;
+            border-left: 4px solid #9c27b0;
+        }
+        .hint {
+            background: #e8f5e9;
+            padding: 10px;
+            border-left: 4px solid #2e7d32;
+            margin: 10px 0;
+            display: none;
+        }
+        .show-hint {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .network-diagram {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 5px;
+        }
+        .config-box {
+            background: #f0f0f0;
+            border-left: 4px solid #0066cc;
+            padding: 10px 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            white-space: pre;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Curso de Cisco Packet Tracer</h1>
+            <p>Sesión 10: Proyecto Final Integrador</p>
+        </div>
+    </header>
+
+    <nav class="session-nav">
+        <div class="container">
+            <a href="../index.html" class="nav-home">Inicio</a>
+            <span class="nav-current">Sesión 10</span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="session-content">
+            <h2>Proyecto Final: Diseño e Implementación de una Red Empresarial</h2>
+            
+            <div class="learning-objectives">
+                <h3>Objetivos del Proyecto</h3>
+                <ul>
+                    <li>Aplicar todos los conceptos aprendidos en el curso</li>
+                    <li>Diseñar una red empresarial completa</li>
+                    <li>Configurar dispositivos de red según los requisitos</li>
+                    <li>Implementar medidas de seguridad</li>
+                    <li>Documentar el diseño y la configuración</li>
+                </ul>
+            </div>
+
+            <article class="project-section requirements">
+                <h3>Escenario del Proyecto</h3>
+                <p>Una empresa de desarrollo de software con 3 departamentos (Desarrollo, Ventas y Administración) necesita implementar una red segura y eficiente. La empresa tiene una oficina principal y una sucursal remota que deben estar conectadas.</p>
+                
+                <h4>Requisitos de la Red</h4>
+                <ul>
+                    <li><strong>Oficina Principal:</strong>
+                        <ul>
+                            <li>Departamento de Desarrollo: 20 empleados</li>
+                            <li>Departamento de Ventas: 10 empleados</li>
+                            <li>Departamento de Administración: 5 empleados</li>
+                            <li>Servidores: Web, Correo, Archivos</li>
+                            <li>Acceso inalámbrico para visitantes</li>
+                        </ul>
+                    </li>
+                    <li><strong>Sucursal Remota:</strong>
+                        <ul>
+                            <li>10 empleados (todos en la misma red)</li>
+                            <li>Conexión segura con la oficina principal</li>
+                        </ul>
+                    </li>
+                    <li><strong>Requisitos de Conectividad:</strong>
+                        <ul>
+                            <li>Internet de alta velocidad</li>
+                            <li>Red privada virtual (VPN) entre oficinas</li>
+                            <li>Acceso remoto seguro para empleados</li>
+                        </ul>
+                    </li>
+                </ul>
+            </article>
+
+            <article class="project-section">
+                <h3>Instrucciones del Proyecto</h3>
+                
+                <h4>1. Diseño de la Red</h4>
+                <div class="network-diagram">
+                    <p><strong>Diagrama de red sugerido:</strong></p>
+                    <p>[Inserte aquí un diagrama de red que muestre la topología propuesta]</p>
+                    <button class="show-hint" onclick="document.getElementById('hint1').style.display='block'">Mostrar Pista</button>
+                    <div id="hint1" class="hint">
+                        Considere una topología jerárquica con:
+                        <ul>
+                            <li>Capa de Núcleo: Router principal conectado a Internet</li>
+                            <li>Capa de Distribución: Switches L3 para el enrutamiento entre VLANs</li>
+                            <li>Capa de Acceso: Switches L2 para conexión de dispositivos finales</li>
+                            <li>Zona desmilitarizada (DMZ) para servidores accesibles desde Internet</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h4>2. Esquema de Direccionamiento IP</h4>
+                <p>Diseñe un esquema de direccionamiento IP que incluya:</p>
+                <ul>
+                    <li>Subredes para cada departamento</li>
+                    <li>Subred para servidores</li>
+                    <li>Subred para dispositivos de red</li>
+                    <li>Subred para la conexión entre routers</li>
+                    <li>Espacio para crecimiento futuro</li>
+                </ul>
+                <button class="show-hint" onclick="document.getElementById('hint2').style.display='block'">Mostrar Pista</button>
+                <div id="hint2" class="hint">
+                    Considere usar el espacio de direcciones privadas 172.16.0.0/16 y dividirlo según las necesidades:
+                    <ul>
+                        <li>172.16.1.0/24 - Red de administración</li>
+                        <li>172.16.10.0/24 - Departamento de Desarrollo</li>
+                        <li>172.16.20.0/24 - Departamento de Ventas</li>
+                        <li>172.16.30.0/24 - Departamento de Administración</li>
+                        <li>172.16.100.0/24 - Servidores</li>
+                        <li>172.16.200.0/30 - Enlace entre routers</li>
+                    </ul>
+                </div>
+
+                <h4>3. Configuración de Dispositivos</h4>
+                <p>Implemente la configuración necesaria en todos los dispositivos:</p>
+                <ul>
+                    <li>Configuración básica de routers y switches</li>
+                    <li>Configuración de VLANs</li>
+                    <li>Enrutamiento entre VLANs</li>
+                    <li>Configuración de seguridad</li>
+                    <li>Configuración inalámbrica</li>
+                </ul>
+                <button class="show-hint" onclick="document.getElementById('hint3').style.display='block'">Mostrar Pista</button>
+                <div id="hint3" class="hint">
+                    <p>Configuración básica de VLAN en switches:</p>
+                    <div class="config-box">! Configuración de VLANs
+vlan 10
+ name Desarrollo
+exit
+vlan 20
+ name Ventas
+exit
+vlan 30
+ name Administracion
+exit
+vlan 100
+ name Servidores
+exit
+
+! Configuración de puertos de acceso
+interface range fastEthernet 0/1-20
+ switchport mode access
+ switchport access vlan 10
+ no shutdown
+exit
+
+interface range fastEthernet 0/21-30
+ switchport mode access
+ switchport access vlan 20
+ no shutdown
+exit
+
+! Configuración de puerto troncal al router
+interface gigabitEthernet 0/1
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30,100
+ no shutdown
+exit</div>
+                </div>
+
+                <h4>4. Seguridad</h4>
+                <p>Implemente las siguientes medidas de seguridad:</p>
+                <ul>
+                    <li>ACLs para controlar el tráfico entre redes</li>
+                    <li>Seguridad de puertos en switches</li>
+                    <li>SSH para administración remota</li>
+                    <li>Autenticación AAA</li>
+                    <li>Seguridad inalámbrica WPA2-Enterprise</li>
+                </ul>
+                <button class="show-hint" onclick="document.getElementById('hint4').style.display='block'">Mostrar Pista</button>
+                <div id="hint4" class="hint">
+                    <p>Ejemplo de configuración de ACL extendida:</p>
+                    <div class="config-box">! ACL para permitir solo tráfico web y DNS desde la red de ventas a Internet
+access-list 100 permit tcp 172.16.20.0 0.0.0.255 any eq www
+access-list 100 permit tcp 172.16.20.0 0.0.0.255 any eq 443
+access-list 100 permit udp 172.16.20.0 0.0.0.255 any eq domain
+access-list 100 deny   ip 172.16.20.0 0.0.0.255 any
+
+! Aplicar ACL a la interfaz de salida a Internet
+interface gigabitEthernet 0/1
+ ip access-group 100 out
+exit</div>
+                </div>
+
+                <h4>5. Conectividad entre Oficinas</h4>
+                <p>Configure una conexión VPN segura entre la oficina principal y la sucursal remota.</p>
+                <button class="show-hint" onclick="document.getElementById('hint5').style.display='block'">Mostrar Pista</button>
+                <div id="hint5" class="hint">
+                    <p>Configuración básica de VPN Site-to-Site con IPsec:</p>
+                    <div class="config-box">! Configuración en el router de la oficina principal
+crypto isakmp policy 10
+ encr aes 256
+ authentication pre-share
+ group 5
+crypto isakmp key cisco123 address 203.0.113.2
+
+crypto ipsec transform-set MYSET esp-aes 256 esp-sha-hmac
+
+crypto map MYMAP 10 ipsec-isakmp
+ set peer 203.0.113.2
+ set transform-set MYSET
+ match address 100
+
+! Aplicar el mapa criptográfico a la interfaz de Internet
+interface gigabitEthernet 0/1
+ crypto map MYMAP
+exit
+
+! Configurar lista de acceso para el tráfico a cifrar
+access-list 100 permit ip 172.16.0.0 0.0.255.255 192.168.1.0 0.0.0.255</div>
+                </div>
+            </article>
+
+            <article class="project-section deliverables">
+                <h3>Entregables</h3>
+                <p>Para completar el proyecto, debe entregar:</p>
+                <ol>
+                    <li>Documento de diseño de red que incluya:
+                        <ul>
+                            <li>Diagrama de topología de red</li>
+                            <li>Esquema de direccionamiento IP</li>
+                            <li>Descripción de las configuraciones implementadas</li>
+                            <li>Medidas de seguridad implementadas</li>
+                        </ul>
+                    </li>
+                    <li>Archivo de Packet Tracer (.pkt) con la implementación completa</li>
+                    <li>Documento de configuración de los dispositivos</li>
+                    <li>Manual de procedimientos para el administrador de red</li>
+                </ol>
+            </article>
+
+            <article class="project-section evaluation">
+                <h3>Criterios de Evaluación</h3>
+                <p>El proyecto será evaluado según los siguientes criterios:</p>
+                <table class="wireless-table">
+                    <tr>
+                        <th>Criterio</th>
+                        <th>Ponderación</th>
+                        <th>Descripción</th>
+                    </tr>
+                    <tr>
+                        <td>Diseño de Red</td>
+                        <td>20%</td>
+                        <td>Topología lógica y física adecuada</td>
+                    </tr>
+                    <tr>
+                        <td>Configuración de Dispositivos</td>
+                        <td>30%</td>
+                        <td>Configuración correcta de routers, switches y puntos de acceso</td>
+                    </tr>
+                    <tr>
+                        <td>Seguridad</td>
+                        <td>25%</td>
+                        <td>Implementación de medidas de seguridad adecuadas</td>
+                    </tr>
+                    <tr>
+                        <td>Conectividad</td>
+                        <td>15%</td>
+                        <td>Funcionamiento correcto de la conectividad entre dispositivos</td>
+                    </tr>
+                    <tr>
+                        <td>Documentación</td>
+                        <td>10%</td>
+                        <td>Completitud y claridad de la documentación</td>
+                    </tr>
+                </table>
+            </article>
+
+            <h3>Recursos Adicionales</h3>
+            <ul>
+                <li><a href="#" onclick="alert('Plantilla de documentación disponible en la carpeta de recursos')">Plantilla de documentación del proyecto</a></li>
+                <li><a href="#" onclick="alert('Lista de verificación de requisitos disponible en la carpeta de recursos')">Lista de verificación de requisitos</a></li>
+                <li><a href="#" onclick="alert('Ejemplo de configuración de router disponible en la carpeta de recursos')">Ejemplo de configuración de router</a></li>
+            </ul>
+
+            <h3>¡Felicidades por completar el curso!</h3>
+            <p>Has llegado al final del curso de Cisco Packet Tracer. El proyecto final te ha permitido integrar todos los conceptos aprendidos a lo largo de las sesiones. Continúa practicando y explorando nuevas configuraciones para fortalecer tus habilidades en redes de computadoras.</p>
+
+            <div class="navigation-buttons">
+                <a href="sesion9.html" class="btn btn-prev">← Sesión Anterior</a>
+                <a href="../index.html" class="btn btn-next">Volver al Inicio →</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; JMGV-PTEL <span id="current-year">2025</span>. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/session.js"></script>
+    <script>
+        // Mostrar el año actual en el footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

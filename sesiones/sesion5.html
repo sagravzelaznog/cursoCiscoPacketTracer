@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesión 5: Enrutamiento Estático - Curso de Cisco Packet Tracer</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/session.css">
+    <style>
+        .route-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .route-table th, .route-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .route-table th {
+            background-color: #f2f2f2;
+        }
+        .network-diagram {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 5px;
+        }
+        .config-box {
+            background: #f0f0f0;
+            border-left: 4px solid #0066cc;
+            padding: 10px 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            white-space: pre;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Curso de Cisco Packet Tracer</h1>
+            <p>Sesión 5: Enrutamiento Estático</p>
+        </div>
+    </header>
+
+    <nav class="session-nav">
+        <div class="container">
+            <a href="../index.html" class="nav-home">Inicio</a>
+            <span class="nav-current">Sesión 5</span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="session-content">
+            <h2>Enrutamiento Estático</h2>
+            
+            <div class="learning-objectives">
+                <h3>Objetivos de Aprendizaje</h3>
+                <ul>
+                    <li>Comprender el concepto de enrutamiento estático</li>
+                    <li>Aprender a configurar rutas estáticas en routers Cisco</li>
+                    <li>Entender la tabla de enrutamiento</li>
+                    <li>Configurar rutas estáticas en Packet Tracer</li>
+                </ul>
+            </div>
+
+            <article class="theory">
+                <h3>¿Qué es el Enrutamiento Estático?</h3>
+                <p>El enrutamiento estático es un método de configuración manual de rutas en un router. A diferencia del enrutamiento dinámico, donde los routers comparten información automáticamente, en el enrutamiento estático el administrador debe configurar manualmente cada ruta.</p>
+                
+                <h4>Ventajas del Enrutamiento Estático</h4>
+                <ul>
+                    <li>Bajo uso de recursos del router</li>
+                    <li>Sin sobrecarga de tráfico de red</li>
+                    <li>Mayor seguridad (no hay intercambio de información de enrutamiento)</li>
+                    <li>Predecible (las rutas no cambian a menos que se modifiquen manualmente)</li>
+                </ul>
+
+                <h4>Desventajas del Enrutamiento Estático</h4>
+                <ul>
+                    <li>No se adapta a cambios en la topología de red</li>
+                    <li>Requiere configuración manual en cada router</li>
+                    <li>No es escalable para redes grandes</li>
+                    <li>Propenso a errores humanos</li>
+                </ul>
+
+                <h3>Tabla de Enrutamiento</h3>
+                <p>La tabla de enrutamiento es una base de datos que almacena información sobre redes remotas y cómo llegar a ellas. Contiene las siguientes columnas principales:</p>
+                
+                <table class="route-table">
+                    <tr>
+                        <th>Código</th>
+                        <th>Red de Destino</th>
+                        <th>Máscara</th>
+                        <th>Próximo Salto</th>
+                        <th>Interfaz</th>
+                        <th>Distancia Administrativa</th>
+                        <th>Métrica</th>
+                    </tr>
+                    <tr>
+                        <td>C</td>
+                        <td>192.168.1.0</td>
+                        <td>255.255.255.0</td>
+                        <td>Directamente conectado</td>
+                        <td>Gig0/0</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>S</td>
+                        <td>10.0.0.0</td>
+                        <td>255.0.0.0</td>
+                        <td>192.168.1.1</td>
+                        <td>Gig0/0</td>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr>
+                </table>
+
+                <h4>Códigos de la Tabla de Enrutamiento</h4>
+                <ul>
+                    <li><strong>C</strong>: Red conectada directamente</li>
+                    <li><strong>S</strong>: Ruta estática</li>
+                    <li><strong>R</strong>: RIP</li>
+                    <li><strong>O</strong>: OSPF</li>
+                    <li><strong>D</strong>: EIGRP</li>
+                </ul>
+            </article>
+
+            <article class="practice">
+                <h3>Práctica: Configuración de Rutas Estáticas</h3>
+                
+                <div class="exercise">
+                    <h4>Ejercicio 1: Topología Básica</h4>
+                    <p>Crea la siguiente topología en Packet Tracer:</p>
+                    
+                    <div class="network-diagram">
+                        <p>PC1 --- [Router1] --- [Router2] --- PC2</p>
+                        <p>Red 1: 192.168.1.0/24</p>
+                        <p>Red 2: 192.168.2.0/24 (entre routers)</p>
+                        <p>Red 3: 10.0.0.0/24</p>
+                    </div>
+                    
+                    <ol>
+                        <li>Configura las direcciones IP en todos los dispositivos.</li>
+                        <li>Configura una ruta estática en Router1 para llegar a la red 10.0.0.0/24 a través de Router2.</li>
+                        <li>Configura una ruta estática en Router2 para llegar a la red 192.168.1.0/24 a través de Router1.</li>
+                        <li>Verifica la conectividad entre PC1 y PC2.</li>
+                    </ol>
+                    
+                    <div class="solution">
+                        <button class="show-solution">Mostrar Configuración</button>
+                        <div class="solution-content">
+                            <p><strong>Configuración de Router1:</strong></p>
+                            <div class="config-box">enable
+configure terminal
+hostname Router1
+interface GigabitEthernet0/0
+ ip address 192.168.1.1 255.255.255.0
+ no shutdown
+exit
+interface GigabitEthernet0/1
+ ip address 192.168.2.1 255.255.255.0
+ no shutdown
+exit
+ip route 10.0.0.0 255.255.255.0 192.168.2.2
+end
+copy running-config startup-config</div>
+
+                            <p><strong>Configuración de Router2:</strong></p>
+                            <div class="config-box">enable
+configure terminal
+hostname Router2
+interface GigabitEthernet0/0
+ ip address 10.0.0.1 255.255.255.0
+ no shutdown
+exit
+interface GigabitEthernet0/1
+ ip address 192.168.2.2 255.255.255.0
+ no shutdown
+exit
+ip route 192.168.1.0 255.255.255.0 192.168.2.1
+end
+copy running-config startup-config</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 2: Ruta por Defecto</h4>
+                    <p>Configura una ruta por defecto en Router1 para enviar todo el tráfico a Internet a través de Router2.</p>
+                    
+                    <ol>
+                        <li>Agrega un servidor que simule Internet (por ejemplo, con IP 203.0.113.1).</li>
+                        <li>Configura una ruta por defecto en Router1.</li>
+                        <li>Verifica la conectividad desde PC1 al servidor de Internet.</li>
+                    </ol>
+                    
+                    <div class="solution">
+                        <button class="show-solution">Mostrar Comandos</button>
+                        <div class="solution-content">
+                            <p>En Router1:</p>
+                            <div class="config-box">enable
+configure terminal
+ip route 0.0.0.0 0.0.0.0 192.168.2.2
+end
+copy running-config startup-config</div>
+
+                            <p>Para verificar la tabla de enrutamiento:</p>
+                            <div class="config-box">show ip route</div>
+                            
+                            <p>Deberías ver una entrada como esta:</p>
+                            <div class="config-box">S*    0.0.0.0/0 [1/0] via 192.168.2.2</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 3: Rutas Estáticas Flotantes</h4>
+                    <p>Configura una ruta estática flotante como respaldo.</p>
+                    
+                    <ol>
+                        <li>Agrega un enlace de respaldo entre los routers.</li>
+                        <li>Configura una ruta estática con una distancia administrativa mayor como respaldo.</li>
+                        <li>Simula una falla en el enlace principal y verifica la conmutación por error.</li>
+                    </ol>
+                    
+                    <div class="solution">
+                        <button class="show-solution">Mostrar Configuración</button>
+                        <div class="solution-content">
+                            <p>En Router1:</p>
+                            <div class="config-box">enable
+configure terminal
+interface Serial0/1/0
+ ip address 192.168.3.1 255.255.255.252
+ no shutdown
+exit
+ip route 10.0.0.0 255.255.255.0 192.168.3.2 5
+end
+copy running-config startup-config</div>
+
+                            <p>En Router2:</p>
+                            <div class="config-box">enable
+configure terminal
+interface Serial0/1/0
+ ip address 192.168.3.2 255.255.255.252
+ no shutdown
+exit
+ip route 192.168.1.0 255.255.255.0 192.168.3.1 5
+end
+copy running-config startup-config</div>
+
+                            <p>El parámetro "5" al final del comando ip route establece una distancia administrativa mayor (por defecto es 1), por lo que esta ruta solo se usará si la ruta principal falla.</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <h3>Resumen de la Sesión</h3>
+            <p>En esta sesión has aprendido sobre el enrutamiento estático, sus ventajas y desventajas, y cómo configurarlo en routers Cisco. Has practicado la configuración de rutas estáticas, rutas por defecto y rutas estáticas flotantes en Packet Tracer.</p>
+
+            <div class="navigation-buttons">
+                <a href="sesion4.html" class="btn btn-prev">← Sesión Anterior</a>
+                <a href="sesion6.html" class="btn btn-next">Siguiente Sesión →</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; JMGV-PTEL <span id="current-year">2025</span>. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/session.js"></script>
+</body>
+</html>

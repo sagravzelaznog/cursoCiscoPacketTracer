@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesión 9: Redes Inalámbricas - Curso de Cisco Packet Tracer</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/session.css">
+    <style>
+        .wireless-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .wireless-table th, .wireless-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .wireless-table th {
+            background-color: #f2f2f2;
+        }
+        .wifi-standards {
+            background: #f9f9f9;
+            padding: 15px;
+            border-left: 4px solid #4CAF50;
+            margin: 15px 0;
+        }
+        .security-methods {
+            background: #e7f3fe;
+            padding: 15px;
+            border-left: 4px solid #2196F3;
+            margin: 15px 0;
+        }
+        .config-box {
+            background: #f0f0f0;
+            border-left: 4px solid #0066cc;
+            padding: 10px 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            white-space: pre;
+            overflow-x: auto;
+        }
+        .ap-config {
+            background: #fff3e0;
+            padding: 15px;
+            border-left: 4px solid #FF9800;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Curso de Cisco Packet Tracer</h1>
+            <p>Sesión 9: Redes Inalámbricas</p>
+        </div>
+    </header>
+
+    <nav class="session-nav">
+        <div class="container">
+            <a href="../index.html" class="nav-home">Inicio</a>
+            <span class="nav-current">Sesión 9</span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="session-content">
+            <h2>Redes Inalámbricas</h2>
+            
+            <div class="learning-objectives">
+                <h3>Objetivos de Aprendizaje</h3>
+                <ul>
+                    <li>Comprender los conceptos básicos de redes inalámbricas</li>
+                    <li>Conocer los estándares IEEE 802.11</li>
+                    <li>Configurar un punto de acceso inalámbrico</li>
+                    <li>Implementar seguridad en redes inalámbricas</li>
+                    <li>Solucionar problemas comunes en redes inalámbricas</li>
+                </ul>
+            </div>
+
+            <article class="theory">
+                <h3>Conceptos Básicos de Redes Inalámbricas</h3>
+                <p>Las redes inalámbricas permiten la conexión de dispositivos sin necesidad de cables, utilizando ondas de radio para transmitir datos.</p>
+                
+                <h4>Ventajas de las Redes Inalámbricas</h4>
+                <ul>
+                    <li>Movilidad de los usuarios</li>
+                    <li>Facilidad de instalación</li>
+                    <li>Escalabilidad</li>
+                    <li>Reducción de costos de infraestructura</li>
+                </ul>
+
+                <h3>Estándares IEEE 802.11</h3>
+                <div class="wifi-standards">
+                    <table class="wireless-table">
+                        <tr>
+                            <th>Estándar</th>
+                            <th>Frecuencia</th>
+                            <th>Velocidad Máxima</th>
+                            <th>Alcance</th>
+                        </tr>
+                        <tr>
+                            <td>802.11a</td>
+                            <td>5 GHz</td>
+                            <td>54 Mbps</td>
+                            <td>35 m (interior)</td>
+                        </tr>
+                        <tr>
+                            <td>802.11b</td>
+                            <td>2.4 GHz</td>
+                            <td>11 Mbps</td>
+                            <td>38 m (interior)</td>
+                        </tr>
+                        <tr>
+                            <td>802.11g</td>
+                            <td>2.4 GHz</td>
+                            <td>54 Mbps</td>
+                            <td>38 m (interior)</td>
+                        </tr>
+                        <tr>
+                            <td>802.11n (Wi-Fi 4)</td>
+                            <td>2.4/5 GHz</td>
+                            <td>600 Mbps</td>
+                            <td>70 m (interior)</td>
+                        </tr>
+                        <tr>
+                            <td>802.11ac (Wi-Fi 5)</td>
+                            <td>5 GHz</td>
+                            <td>3.5 Gbps</td>
+                            <td>35 m (interior)</td>
+                        </tr>
+                        <tr>
+                            <td>802.11ax (Wi-Fi 6)</td>
+                            <td>2.4/5/6 GHz</td>
+                            <td>9.6 Gbps</td>
+                            <td>30 m (interior)</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <h3>Componentes de una Red Inalámbrica</h3>
+                <ul>
+                    <li><strong>Punto de Acceso (AP):</strong> Dispositivo que permite la conexión de dispositivos inalámbricos a una red cableada.</li>
+                    <li><strong>Controlador de Puntos de Acceso (WLC):</strong> Gestiona múltiples puntos de acceso.</li>
+                    <li><strong>Cliente Inalámbrico:</strong> Dispositivo que se conecta a la red inalámbrica (laptops, smartphones, etc.).</li>
+                    <li><strong>Antenas:</strong> Dirigidas u omnidireccionales para la transmisión/recepción de señales.</li>
+                </ul>
+
+                <h3>Seguridad en Redes Inalámbricas</h3>
+                <div class="security-methods">
+                    <h4>Métodos de Autenticación</h4>
+                    <ul>
+                        <li><strong>WEP (Wired Equivalent Privacy):</strong> Antiguo e inseguro, no recomendado.</li>
+                        <li><strong>WPA (Wi-Fi Protected Access):</strong> Mejora sobre WEP, usa TKIP.</li>
+                        <li><strong>WPA2 (Wi-Fi Protected Access 2):</strong> Usa AES-CCMP, actualmente el más común.</li>
+                        <li><strong>WPA3 (Wi-Fi Protected Access 3):</strong> Último estándar con mejor seguridad.</li>
+                    </ul>
+                    
+                    <h4>Modos de Seguridad</h4>
+                    <ul>
+                        <li><strong>Personal (PSK):</strong> Usa una contraseña precompartida.</li>
+                        <li><strong>Empresarial (802.1X):</strong> Usa un servidor de autenticación (RADIUS).</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="practice">
+                <h3>Práctica: Configuración de Red Inalámbrica</h3>
+                
+                <div class="exercise">
+                    <h4>Ejercicio 1: Configuración Básica de un Punto de Acceso</h4>
+                    <p>Configura un punto de acceso inalámbrico con las siguientes características:</p>
+                    <ul>
+                        <li>SSID: MiRedInalambrica</li>
+                        <li>Canal: 6 (2.437 GHz)</li>
+                        <li>Modo: 802.11g/n</li>
+                        <li>Seguridad: WPA2-Personal</li>
+                        <li>Contraseña: Segura1234</li>
+                    </ul>
+                    
+                    <div class="solution">
+                        <button class="show-solution">Mostrar Configuración</button>
+                        <div class="solution-content">
+                            <div class="ap-config">
+                                <p>En Packet Tracer:</p>
+                                <ol>
+                                    <li>Arrastre un "Wireless Router" o "Access Point" al área de trabajo.</li>
+                                    <li>Haga doble clic en el dispositivo y vaya a la pestaña "Config".</li>
+                                    <li>En la sección "Wireless":
+                                        <ul>
+                                            <li>Habilite "Wireless"</li>
+                                            <li>SSID: MiRedInalambrica</li>
+                                            <li>Channel: 6 - 2.437 GHz</li>
+                                            <li>Mode: 802.11g/n</li>
+                                        </ul>
+                                    </li>
+                                    <li>En la sección "Wireless Security":
+                                        <ul>
+                                            <li>Security Mode: WPA2-Personal</li>
+                                            <li>Encryption: AES</li>
+                                            <li>Pass Phrase: Segura1234</li>
+                                        </ul>
+                                    </li>
+                                    <li>Haga clic en "Save" para aplicar los cambios.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 2: Conexión de Dispositivos Inalámbricos</h4>
+                    <p>Conecta un dispositivo inalámbrico (laptop, smartphone) a la red recién creada.</p>
+                    
+                    <div class="solution">
+                        <button class="show-solution">Mostrar Procedimiento</button>
+                        <div class="solution-content">
+                            <ol>
+                                <li>Arrastre un dispositivo inalámbrico (laptop o smartphone) al área de trabajo.</li>
+                                <li>Haga clic en el dispositivo y vaya a la pestaña "Desktop".</li>
+                                <li>Seleccione "PC Wireless".</li>
+                                <li>En la ventana que aparece, debería ver la red "MiRedInalambrica" en la lista de redes disponibles.</li>
+                                <li>Seleccione la red y haga clic en "Connect".</li>
+                                <li>Ingrese la contraseña: Segura1234 y haga clic en "Connect".</li>
+                                <li>Verifique la conexión abriendo un navegador web o haciendo ping a otro dispositivo en la red.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 3: Configuración de Seguridad Avanzada</h4>
+                    <p>Configura el punto de acceso con las siguientes características de seguridad avanzadas:</p>
+                    <ul>
+                        <li>Filtrado de direcciones MAC</li>
+                        <li>Ocultar SSID</li>
+                        <li>Reducir la potencia de transmisión</li>
+                    </ul>
+                    
+                    <div class="solution">
+                        <button class="show-solution">Mostrar Configuración</button>
+                        <div class="solution-content">
+                            <div class="config-box">! Acceder al modo de configuración
+disable
+configure terminal
+
+! Configurar filtrado MAC
+wireless
+wireless security mac-filtering
+wireless security mac-filtering permit 00:1A:2B:3C:4D:5E
+wireless security mac-filtering deny 00:1A:2B:3C:4D:5F
+wireless security mac-filtering enable
+exit
+
+! Ocultar SSID
+wireless
+wireless ssid MiRedInalambrica
+   ssid-hide
+   exit
+
+exit
+
+! Reducir potencia de transmisión (en mW)
+interface dot11Radio 0
+ power local 20
+exit
+
+! Guardar configuración
+write memory</div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <h3>Resolución de Problemas Comunes</h3>
+            <div class="config-box">! Ver estado de las interfaces inalámbricas
+show interfaces dot11Radio 0
+show controllers dot11Radio 0
+
+! Ver clientes conectados
+show wireless client
+show wireless client mac-address [dirección-mac]
+
+! Ver configuración de radio
+show dot11 associations
+show dot11 statistics
+
+! Ver canales y potencia de señal
+show dot11 adjacent-ap
+
+! Reiniciar interfaz inalámbrica
+interface dot11Radio 0
+ shutdown
+ no shutdown
+exit</div>
+
+            <h3>Buenas Prácticas en Redes Inalámbricas</h3>
+            <ul>
+                <li>Usar WPA3 o WPA2 con AES para máxima seguridad</li>
+                <li>Cambiar las credenciales predeterminadas del punto de acceso</li>
+                <li>Actualizar el firmware de los dispositivos regularmente</li>
+                <li>Usar canales no superpuestos (1, 6, 11 en 2.4 GHz)</li>
+                <li>Realizar un estudio de cobertura para optimizar la ubicación de los puntos de acceso</li>
+                <li>Considerar el uso de bandas de 5 GHz para mayor ancho de banda y menos interferencias</li>
+            </ul>
+
+            <h3>Resumen de la Sesión</h3>
+            <p>En esta sesión has aprendido los conceptos fundamentales de las redes inalámbricas, incluyendo los estándares 802.11, componentes de red inalámbrica, métodos de seguridad y configuración práctica de puntos de acceso. Estas habilidades son esenciales para diseñar, implementar y mantener redes inalámbricas seguras y eficientes.</p>
+
+            <div class="navigation-buttons">
+                <a href="sesion8.html" class="btn btn-prev">← Sesión Anterior</a>
+                <a href="sesion10.html" class="btn btn-next">Siguiente Sesión →</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; JMGV-PTEL <span id="current-year">2025</span>. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/session.js"></script>
+</body>
+</html>

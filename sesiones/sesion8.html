@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesión 8: Seguridad Básica en Redes - Curso de Cisco Packet Tracer</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/session.css">
+    <style>
+        .security-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .security-table th, .security-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .security-table th {
+            background-color: #f2f2f2;
+        }
+        .acl-types {
+            background: #f9f9f9;
+            padding: 15px;
+            border-left: 4px solid #4CAF50;
+            margin: 15px 0;
+        }
+        .port-security {
+            background: #e7f3fe;
+            padding: 15px;
+            border-left: 4px solid #2196F3;
+            margin: 15px 0;
+        }
+        .ssh-config {
+            background: #fff3e0;
+            padding: 15px;
+            border-left: 4px solid #FF9800;
+            margin: 15px 0;
+        }
+        .config-box {
+            background: #f0f0f0;
+            border-left: 4px solid #0066cc;
+            padding: 10px 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            white-space: pre;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Curso de Cisco Packet Tracer</h1>
+            <p>Sesión 8: Seguridad Básica en Redes</p>
+        </div>
+    </header>
+
+    <nav class="session-nav">
+        <div class="container">
+            <a href="../index.html" class="nav-home">Inicio</a>
+            <span class="nav-current">Sesión 8</span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="session-content">
+            <h2>Seguridad Básica en Redes</h2>
+            
+            <div class="learning-objectives">
+                <h3>Objetivos de Aprendizaje</h3>
+                <ul>
+                    <li>Comprender los conceptos básicos de seguridad en redes</li>
+                    <li>Configurar listas de control de acceso (ACLs)</li>
+                    <li>Implementar seguridad de puertos en switches</li>
+                    <li>Configurar SSH para administración segura</li>
+                    <li>Aplicar buenas prácticas de seguridad básica</li>
+                </ul>
+            </div>
+
+            <article class="theory">
+                <h3>Introducción a la Seguridad en Redes</h3>
+                <p>La seguridad en redes es fundamental para proteger la infraestructura y los datos contra accesos no autorizados, ataques y amenazas potenciales.</p>
+                
+                <h4>Principios Básicos de Seguridad</h4>
+                <ul>
+                    <li><strong>Confidencialidad:</strong> Solo usuarios autorizados pueden acceder a la información.</li>
+                    <li><strong>Integridad:</strong> La información no puede ser modificada por usuarios no autorizados.</li>
+                    <li><strong>Disponibilidad:</strong> Los recursos deben estar disponibles cuando se necesiten.</li>
+                </ul>
+
+                <h3>Listas de Control de Acceso (ACLs)</h3>
+                <div class="acl-types">
+                    <h4>Tipos de ACLs</h4>
+                    <ul>
+                        <li><strong>ACL Estándar:</strong> Filtra solo por dirección IP de origen (1-99, 1300-1999)</li>
+                        <li><strong>ACL Extendida:</strong> Filtra por dirección IP de origen/destino, protocolo y puerto (100-199, 2000-2699)</li>
+                        <li><strong>ACL Nombrada:</strong> Versión más reciente que usa nombres en lugar de números</li>
+                    </ul>
+                </div>
+
+                <h3>Seguridad de Puertos en Switches</h3>
+                <div class="port-security">
+                    <h4>Características de Port Security</h4>
+                    <ul>
+                        <li>Limita las direcciones MAC que pueden conectarse a un puerto</li>
+                        <li>Puede aprender direcciones MAC automáticamente o configurarse manualmente</li>
+                        <li>Acciones ante violaciones: shutdown, restrict, protect</li>
+                    </ul>
+                </div>
+
+                <h3>SSH para Administración Segura</h3>
+                <div class="ssh-config">
+                    <p>SSH (Secure Shell) es un protocolo que proporciona una conexión segura para la administración remota de dispositivos de red.</p>
+                    <p>Ventajas sobre Telnet:</p>
+                    <ul>
+                        <li>Cifrado de datos</li>
+                        <li>Autenticación segura</li>
+                        <li>Integridad de datos</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="practice">
+                <h3>Práctica: Configuración de Seguridad</h3>
+                
+                <div class="exercise">
+                    <h4>Ejercicio 1: Configuración de ACL Estándar</h4>
+                    <p>Crea una ACL estándar que permita el acceso a la red 192.168.1.0/24 solo desde la subred 10.0.0.0/24.</p>
+                    
+                    <div class="solution">
+                        <button class="show-solution">Mostrar Configuración</button>
+                        <div class="solution-content">
+                            <div class="config-box">enable
+configure terminal
+! Crear ACL estándar
+access-list 1 permit 10.0.0.0 0.255.255.255
+access-list 1 deny   any
+
+! Aplicar ACL a la interfaz
+interface gigabitethernet 0/0
+ ip access-group 1 out
+exit
+
+! Verificar configuración
+show access-lists
+show ip interface gigabitethernet 0/0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 2: Configuración de Seguridad de Puertos</h4>
+                    <p>Configura la seguridad de puertos en un switch para permitir solo una dirección MAC por puerto.</p>
+                    
+                    <div class="solution">
+                        <button class="show-solution">Mostrar Configuración</button>
+                        <div class="solution-content">
+                            <div class="config-box">enable
+configure terminal
+! Seleccionar el puerto a proteger
+interface fastEthernet 0/1
+! Habilitar modo acceso
+ switchport mode access
+! Habilitar port security
+ switchport port-security
+! Establecer el número máximo de direcciones MAC (1 por defecto)
+ switchport port-security maximum 1
+! Configurar la acción ante violaciones (shutdown, restrict, protect)
+ switchport port-security violation shutdown
+! Opcional: Configurar la dirección MAC estática
+! switchport port-security mac-address XXXX.XXXX.XXXX
+! Habilitar sticky learning (aprende automáticamente la primera MAC)
+ switchport port-security mac-address sticky
+ no shutdown
+exit
+
+! Verificar configuración
+show port-security
+show port-security interface fastEthernet 0/1</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 3: Configuración de SSH</h4>
+                    <p>Configura SSH para la administración remota segura de un router.</p>
+                    
+                    <div class="solution">
+                        <button class="show-solution">Mostrar Configuración</button>
+                        <div class="solution-content">
+                            <div class="config-box">enable
+configure terminal
+! Configurar nombre de host y dominio
+hostname RouterSSH
+ip domain-name miempresa.com
+
+! Generar claves criptográficas
+crypto key generate rsa
+! Tamaño de la clave (recomendado 1024 o mayor)
+ 1024
+
+! Configurar autenticación local
+username admin secret miclave123
+line vty 0 4
+ transport input ssh
+ login local
+ exit
+
+! Configurar versión SSH
+ip ssh version 2
+
+! Configurar tiempo de espera de inactividad
+ip ssh time-out 60
+ip ssh authentication-retries 2
+
+! Deshabilitar Telnet
+line vty 0 15
+ no transport input telnet
+ exit
+
+! Verificar configuración
+show ip ssh
+show ssh</div>
+
+                            <p>Para conectarse desde un cliente:</p>
+                            <div class="config-box">ssh -l admin dirección-ip-del-router</div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <h3>Buenas Prácticas de Seguridad</h3>
+            <ul>
+                <li>Cambiar las contraseñas predeterminadas</li>
+                <li>Usar contraseñas seguras (mínimo 8 caracteres, mayúsculas, minúsculas, números y caracteres especiales)</li>
+                <li>Habilitar el registro de eventos (logging)</li>
+                <li>Deshabilitar servicios innecesarios (HTTP, CDP, etc.)</li>
+                <li>Mantener el software actualizado</li>
+                <li>Implementar contraseñas de modo privilegiado</li>
+                <li>Habilitar autenticación local o con servidor AAA</li>
+            </ul>
+
+            <h3>Resolución de Problemas</h3>
+            <div class="config-box">! Ver estado de las ACLs
+show access-lists
+show ip interface
+
+! Ver configuración de seguridad de puertos
+show port-security
+show port-security interface [interfaz]
+
+! Verificar configuración SSH
+show ip ssh
+show ssh
+
+! Ver intentos fallidos de autenticación
+show login failures
+
+! Ver registros del sistema
+show logging</div>
+
+            <h3>Resumen de la Sesión</h3>
+            <p>En esta sesión has aprendido los conceptos fundamentales de seguridad en redes, incluyendo la configuración de ACLs, seguridad de puertos en switches y administración segura mediante SSH. Estas son habilidades esenciales para proteger la infraestructura de red contra accesos no autorizados y amenazas potenciales.</p>
+
+            <div class="navigation-buttons">
+                <a href="sesion7.html" class="btn btn-prev">← Sesión Anterior</a>
+                <a href="sesion9.html" class="btn btn-next">Siguiente Sesión →</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; JMGV-PTEL <span id="current-year">2025</span>. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/session.js"></script>
+</body>
+</html>

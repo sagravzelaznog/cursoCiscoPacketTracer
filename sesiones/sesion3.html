@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesión 3: Dispositivos de Red Básicos - Curso de Cisco Packet Tracer</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/session.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Curso de Cisco Packet Tracer</h1>
+            <p>Sesión 3: Dispositivos de Red Básicos</p>
+        </div>
+    </header>
+
+    <nav class="session-nav">
+        <div class="container">
+            <a href="../index.html" class="nav-home">Inicio</a>
+            <span class="nav-current">Sesión 3</span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="session-content">
+            <h2>Dispositivos de Red Básicos</h2>
+            
+            <div class="learning-objectives">
+                <h3>Objetivos de Aprendizaje</h3>
+                <ul>
+                    <li>Identificar los diferentes dispositivos de red básicos</li>
+                    <li>Comprender las funciones de switches y routers</li>
+                    <li>Configurar dispositivos básicos en Packet Tracer</li>
+                    <li>Establecer conectividad entre dispositivos</li>
+                </ul>
+            </div>
+
+            <article class="theory">
+                <h3>Dispositivos de Red Comunes</h3>
+                
+                <h4>1. Hubs</h4>
+                <ul>
+                    <li>Dispositivo de capa 1 (física)</li>
+                    <li>Envía datos a todos los puertos</li>
+                    <li>No tiene capacidad de filtrado</li>
+                    <li>Poco utilizado en redes modernas</li>
+                </ul>
+
+                <h4>2. Switches</h4>
+                <ul>
+                    <li>Dispositivo de capa 2 (enlace de datos)</li>
+                    <li>Filtra y reenvía tramas basado en direcciones MAC</li>
+                    <li>Crea dominios de colisión separados</li>
+                    <li>Puede tener capacidades de capa 3 (multicapa)</li>
+                </ul>
+
+                <h4>3. Routers</h4>
+                <ul>
+                    <li>Dispositivo de capa 3 (red)</li>
+                    <li>Conecta diferentes redes</li>
+                    <li>Toma decisiones de enrutamiento basadas en direcciones IP</li>
+                    <li>Puede proporcionar seguridad básica</li>
+                </ul>
+
+                <h4>4. Puntos de Acceso Inalámbrico (WAP)</h4>
+                <ul>
+                    <li>Permite la conexión de dispositivos inalámbricos</li>
+                    <li>Conecta redes cableadas e inalámbricas</li>
+                    <li>Puede incluir funciones de router (router inalámbrico)</li>
+                </ul>
+            </article>
+
+            <article class="practice">
+                <h3>Práctica: Configuración Básica de Dispositivos</h3>
+                
+                <div class="exercise">
+                    <h4>Ejercicio 1: Configuración Básica de un Switch</h4>
+                    <p>En este ejercicio, configurarás un switch básico en Packet Tracer.</p>
+                    
+                    <ol>
+                        <li>Arrastra un switch 2960 al área de trabajo.</li>
+                        <li>Haz clic en el switch y ve a la pestaña "CLI".</li>
+                        <li>Ingresa los siguientes comandos:
+                            <pre><code>enable
+configure terminal
+hostname MiSwitch
+enable secret clase
+line console 0
+password cisco
+login
+exit
+line vty 0 15
+password cisco
+login
+exit
+service password-encryption
+ip default-gateway 192.168.1.1
+interface vlan 1
+ip address 192.168.1.10 255.255.255.0
+no shutdown
+end
+copy running-config startup-config
+</code></pre>
+                        </li>
+                    </ol>
+                    
+                    <div class="solution">
+                        <button class="show-solution">Explicación de Comandos</button>
+                        <div class="solution-content">
+                            <ul>
+                                <li><code>enable</code>: Entra en modo privilegiado</li>
+                                <li><code>configure terminal</code>: Entra en modo configuración global</li>
+                                <li><code>hostname</code>: Establece el nombre del dispositivo</li>
+                                <li><code>enable secret</code>: Establece la contraseña de modo privilegiado (encriptada)</li>
+                                <li><code>line console 0</code>: Configura la consola</li>
+                                <li><code>line vty 0 15</code>: Configura el acceso remoto (Telnet/SSH)</li>
+                                <li><code>service password-encryption</code>: Encripta las contraseñas</li>
+                                <li><code>ip default-gateway</code>: Establece la puerta de enlace predeterminada</li>
+                                <li><code>interface vlan 1</code>: Configura la interfaz de administración</li>
+                                <li><code>copy running-config startup-config</code>: Guarda la configuración</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 2: Configuración Básica de un Router</h4>
+                    <p>Ahora configurarás un router básico y lo conectarás al switch.</p>
+                    
+                    <ol>
+                        <li>Arrastra un router 2911 al área de trabajo.</li>
+                        <li>Conecta el router al switch usando un cable de consola.</li>
+                        <li>Configura una dirección IP en la interfaz del router:
+                            <pre><code>enable
+configure terminal
+interface GigabitEthernet0/0
+ip address 192.168.1.1 255.255.255.0
+no shutdown
+exit
+ip dhcp pool RED_LAN
+network 192.168.1.0 255.255.255.0
+default-router 192.168.1.1
+dns-server 8.8.8.8
+exit
+ip dhcp excluded-address 192.168.1.1 192.168.1.10
+end
+copy running-config startup-config
+</code></pre>
+                        </li>
+                    </ol>
+                    
+                    <div class="solution">
+                        <button class="show-solution">Verificar Configuración</button>
+                        <div class="solution-content">
+                            <p>Para verificar la configuración del router:</p>
+                            <pre><code>show ip interface brief  # Muestra el estado de las interfaces
+show running-config    # Muestra la configuración actual
+show ip route          # Muestra la tabla de enrutamiento
+</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 3: Conectividad Básica</h4>
+                    <p>Verifica la conectividad entre dispositivos.</p>
+                    
+                    <ol>
+                        <li>Conecta dos PCs al switch.</li>
+                        <li>Configura las PCs para obtener dirección IP automáticamente (DHCP).</li>
+                        <li>Desde una PC, intenta hacer ping a la otra PC y al router.</li>
+                        <li>Verifica la conectividad a internet (si está configurada).</li>
+                    </ol>
+                    
+                    <div class="solution">
+                        <button class="show-solution">Solución de Problemas</button>
+                        <div class="solution-content">
+                            <p>Si el ping falla, verifica:</p>
+                            <ol>
+                                <li>Que los cables estén correctamente conectados (deben estar en verde)</li>
+                                <li>Que las interfaces estén activas (<code>no shutdown</code>)</li>
+                                <li>Que las direcciones IP estén en la misma red</li>
+                                <li>Que no haya reglas de firewall bloqueando el tráfico</li>
+                                <li>Usa <code>show ip interface brief</code> para verificar el estado de las interfaces</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <h3>Resumen de la Sesión</h3>
+            <p>En esta sesión has aprendido sobre los dispositivos de red básicos, sus funciones y cómo configurarlos en Packet Tracer. Has practicado la configuración básica de switches y routers, y has verificado la conectividad entre dispositivos.</p>
+
+            <div class="navigation-buttons">
+                <a href="sesion2.html" class="btn btn-prev">← Sesión Anterior</a>
+                <a href="sesion4.html" class="btn btn-next">Siguiente Sesión →</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; JMGV-PTEL <span id="current-year">2025</span>. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/session.js"></script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesión 1: Introducción a Redes - Curso de Cisco Packet Tracer</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/session.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Curso de Cisco Packet Tracer</h1>
+            <p>Sesión 1: Introducción a Redes</p>
+        </div>
+    </header>
+
+    <nav class="session-nav">
+        <div class="container">
+            <a href="../index.html" class="nav-home">Inicio</a>
+            <span class="nav-current">Sesión 1</span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="session-content">
+            <h2>Introducción a las Redes de Computadoras</h2>
+            
+            <div class="learning-objectives">
+                <h3>Objetivos de Aprendizaje</h3>
+                <ul>
+                    <li>Comprender los conceptos básicos de redes de computadoras</li>
+                    <li>Identificar los diferentes tipos de redes</li>
+                    <li>Reconocer los componentes básicos de una red</li>
+                    <li>Familiarizarse con la interfaz de Cisco Packet Tracer</li>
+                </ul>
+            </div>
+
+            <article class="theory">
+                <h3>¿Qué es una red de computadoras?</h3>
+                <p>Una red de computadoras es un conjunto de equipos informáticos y dispositivos conectados entre sí para compartir información y recursos. Las redes permiten la comunicación entre dispositivos, el intercambio de datos y el acceso a recursos compartidos como impresoras, archivos e internet.</p>
+                
+                <h4>Tipos de redes</h4>
+                <ul>
+                    <li><strong>LAN (Red de Área Local):</strong> Cubre un área geográfica pequeña como una casa, oficina o edificio.</li>
+                    <li><strong>MAN (Red de Área Metropolitana):</strong> Cubre un área geográfica extensa como una ciudad.</li>
+                    <li><strong>WAN (Red de Área Amplia):</strong> Cubre grandes distancias geográficas, como países o continentes.</li>
+                </ul>
+
+                <h4>Componentes básicos de una red</h4>
+                <ul>
+                    <li><strong>Dispositivos finales:</strong> Computadoras, impresoras, teléfonos IP, etc.</li>
+                    <li><strong>Dispositivos de red:</strong> Routers, switches, hubs, puntos de acceso inalámbrico.</li>
+                    <li><strong>Medios de red:</strong> Cable de cobre, fibra óptica, conexión inalámbrica.</li>
+                    <li><strong>Protocolos:</strong> Conjunto de reglas que gobiernan las comunicaciones.</li>
+                </ul>
+            </article>
+
+            <article class="practice">
+                <h3>Introducción a Cisco Packet Tracer</h3>
+                <p>Cisco Packet Tracer es un simulador de redes que permite crear topologías de red virtuales para practicar conceptos de redes sin necesidad de hardware físico.</p>
+                
+                <div class="exercise">
+                    <h4>Ejercicio 1: Explorando la Interfaz</h4>
+                    <p>Sigue estos pasos para familiarizarte con la interfaz de Packet Tracer:</p>
+                    <ol>
+                        <li>Abre Cisco Packet Tracer en tu computadora.</li>
+                        <li>Observa las diferentes áreas de la interfaz:
+                            <ul>
+                                <li>Barra de menú superior</li>
+                                <li>Barra de herramientas principal</li>
+                                <li>Área de trabajo central</li>
+                                <li>Panel de dispositivos (abajo)</li>
+                                <li>Panel de herramientas (derecha)</li>
+                            </ul>
+                        </li>
+                        <li>Explora las diferentes categorías de dispositivos en el panel inferior.</li>
+                    </ol>
+                    
+                    <div class="solution">
+                        <button class="show-solution">Mostrar Imagen de Referencia</button>
+                        <div class="solution-content">
+                            <p>La interfaz de Packet Tracer se divide en las siguientes áreas principales:</p>
+                            <ol>
+                                <li><strong>Barra de menú:</strong> Contiene opciones como Archivo, Edición, Opciones, etc.</li>
+                                <li><strong>Barra de herramientas:</strong> Contiene iconos para funciones comunes como guardar, abrir, etc.</li>
+                                <li><strong>Área lógica/física:</strong> Permite cambiar entre la vista lógica y física de la red.</li>
+                                <li><strong>Área de trabajo:</strong> Donde se construye y visualiza la red.</li>
+                                <li><strong>Panel de dispositivos:</strong> Contiene todos los dispositivos que se pueden agregar a la red.</li>
+                                <li><strong>Panel de herramientas:</strong> Contiene herramientas como selección, mover, eliminar, etc.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 2: Crear tu Primera Red</h4>
+                    <p>Crea una red simple siguiendo estos pasos:</p>
+                    <ol>
+                        <li>Arrastra dos computadoras desde el panel de dispositivos al área de trabajo.</li>
+                        <li>Arrastra un switch al área de trabajo.</li>
+                        <li>Conecta las computadoras al switch usando cables de red (selecciona el cable recto).</li>
+                        <li>Haz clic en cada computadora, ve a la pestaña "Desktop" y asigna direcciones IP a cada una en la misma red (por ejemplo, 192.168.1.1 y 192.168.1.2 con máscara 255.255.255.0).</li>
+                        <li>Intenta hacer ping de una computadora a la otra para verificar la conectividad.</li>
+                    </ol>
+                    
+                    <div class="solution">
+                        <button class="show-solution">Mostrar Solución</button>
+                        <div class="solution-content">
+                            <p>Pasos detallados para verificar la conexión:</p>
+                            <ol>
+                                <li>Haz clic en una de las computadoras.</li>
+                                <li>Ve a la pestaña "Desktop".</li>
+                                <li>Abre la terminal de comandos.</li>
+                                <li>Escribe: <code>ping 192.168.1.2</code> (o la IP de la otra computadora).</li>
+                                <li>Deberías ver respuestas exitosas si todo está configurado correctamente.</li>
+                            </ol>
+                            <p>Si no funciona, verifica que:</p>
+                            <ul>
+                                <li>Ambas computadoras estén en la misma red.</li>
+                                <li>Los cables estén correctamente conectados (deben estar en verde).</li>
+                                <li>Los dispositivos estén encendidos (el interruptor en la esquina superior derecha debe estar en posición "on").</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <h3>Resumen de la Sesión</h3>
+            <p>En esta sesión has aprendido los conceptos básicos de redes de computadoras, los diferentes tipos de redes, los componentes principales de una red y te has familiarizado con la interfaz de Cisco Packet Tracer. También has creado tu primera red simple y has verificado la conectividad entre dispositivos.</p>
+
+            <div class="navigation-buttons">
+                <a href="#" class="btn btn-prev">Inicio</a>
+                <a href="sesion2.html" class="btn btn-next">Siguiente Sesión →</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; JMGV-PTEL <span id="current-year">2025</span>. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/session.js"></script>
+</body>
+</html>
