@@ -8,17 +8,17 @@
     <link rel="stylesheet" href="../css/session.css">
 </head>
 <body>
-    <header>
+    <header class="main-header">
         <div class="container">
             <h1>Curso de Cisco Packet Tracer</h1>
-            <p>Sesión 3: Dispositivos de Red Básicos</p>
+            <p class="subtitle">Sesión 3: Dispositivos de Red Básicos</p>
         </div>
     </header>
 
-    <nav class="session-nav">
+    <nav class="session-nav" aria-label="Navegación de la sesión">
         <div class="container">
             <a href="../index.html" class="nav-home">Inicio</a>
-            <span class="nav-current">Sesión 3</span>
+            <span class="nav-current" aria-current="page">Sesión 3</span>
         </div>
     </nav>
 
@@ -106,7 +106,7 @@ copy running-config startup-config
                     </ol>
                     
                     <div class="solution">
-                        <button class="show-solution">Explicación de Comandos</button>
+                        <button class="show-solution" aria-expanded="false">Explicación de Comandos</button>
                         <div class="solution-content">
                             <ul>
                                 <li><code>enable</code>: Entra en modo privilegiado</li>
@@ -151,7 +151,7 @@ copy running-config startup-config
                     </ol>
                     
                     <div class="solution">
-                        <button class="show-solution">Verificar Configuración</button>
+                        <button class="show-solution" aria-expanded="false">Verificar Configuración</button>
                         <div class="solution-content">
                             <p>Para verificar la configuración del router:</p>
                             <pre><code>show ip interface brief  # Muestra el estado de las interfaces
@@ -174,7 +174,7 @@ show ip route          # Muestra la tabla de enrutamiento
                     </ol>
                     
                     <div class="solution">
-                        <button class="show-solution">Solución de Problemas</button>
+                        <button class="show-solution" aria-expanded="false">Solución de Problemas</button>
                         <div class="solution-content">
                             <p>Si el ping falla, verifica:</p>
                             <ol>
@@ -199,7 +199,7 @@ show ip route          # Muestra la tabla de enrutamiento
         </section>
     </main>
 
-    <footer>
+    <footer class="main-footer">
         <div class="container">
             <p>&copy; JMGV-PTEL <span id="current-year">2025</span>. Todos los derechos reservados.</p>
         </div>

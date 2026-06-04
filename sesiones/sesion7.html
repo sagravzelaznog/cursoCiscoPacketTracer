@@ -47,17 +47,17 @@
     </style>
 </head>
 <body>
-    <header>
+    <header class="main-header">
         <div class="container">
             <h1>Curso de Cisco Packet Tracer</h1>
-            <p>Sesión 7: VLANs (Redes de Área Local Virtuales)</p>
+            <p class="subtitle">Sesión 7: VLANs (Redes de Área Local Virtuales)</p>
         </div>
     </header>
 
-    <nav class="session-nav">
+    <nav class="session-nav" aria-label="Navegación de la sesión">
         <div class="container">
             <a href="../index.html" class="nav-home">Inicio</a>
-            <span class="nav-current">Sesión 7</span>
+            <span class="nav-current" aria-current="page">Sesión 7</span>
         </div>
     </nav>
 
@@ -137,7 +137,7 @@
                     </ol>
                     
                     <div class="solution">
-                        <button class="show-solution">Mostrar Configuración</button>
+                        <button class="show-solution" aria-expanded="false">Mostrar Configuración</button>
                         <div class="solution-content">
                             <div class="config-box">enable
 configure terminal
@@ -182,7 +182,7 @@ show vlan id 20</div>
                     </ol>
                     
                     <div class="solution">
-                        <button class="show-solution">Mostrar Configuración</button>
+                        <button class="show-solution" aria-expanded="false">Mostrar Configuración</button>
                         <div class="solution-content">
                             <p>En ambos switches:</p>
                             <div class="config-box trunk-config">enable
@@ -216,7 +216,7 @@ show interfaces fastEthernet 0/24 switchport</div>
                     </ol>
                     
                     <div class="solution">
-                        <button class="show-solution">Mostrar Configuración</button>
+                        <button class="show-solution" aria-expanded="false">Mostrar Configuración</button>
                         <div class="solution-content">
                             <p>En el switch servidor:</p>
                             <div class="config-box">enable
@@ -276,7 +276,7 @@ debug sw-vlan vlan events</div>
         </section>
     </main>
 
-    <footer>
+    <footer class="main-footer">
         <div class="container">
             <p>&copy; JMGV-PTEL <span id="current-year">2025</span>. Todos los derechos reservados.</p>
         </div>

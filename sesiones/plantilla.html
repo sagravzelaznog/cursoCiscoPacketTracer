@@ -8,17 +8,17 @@
     <link rel="stylesheet" href="../css/session.css">
 </head>
 <body>
-    <header>
+    <header class="main-header">
         <div class="container">
             <h1>Curso de Cisco Packet Tracer</h1>
-            <p>Sesión X: Título de la Sesión</p>
+            <p class="subtitle">Sesión X: Título de la Sesión</p>
         </div>
     </header>
 
-    <nav class="session-nav">
+    <nav class="session-nav" aria-label="Navegación de la sesión">
         <div class="container">
             <a href="../index.html" class="nav-home">Inicio</a>
-            <span class="nav-current">Sesión X</span>
+            <span class="nav-current" aria-current="page">Sesión X</span>
         </div>
     </nav>
 
@@ -47,7 +47,7 @@
                     <h4>Ejercicio Práctico</h4>
                     <p>Descripción del ejercicio...</p>
                     <div class="solution">
-                        <button class="show-solution">Mostrar Solución</button>
+                        <button class="show-solution" aria-expanded="false">Mostrar Solución</button>
                         <div class="solution-content">
                             <p>Solución detallada paso a paso...</p>
                         </div>
@@ -62,7 +62,7 @@
         </section>
     </main>
 
-    <footer>
+    <footer class="main-footer">
         <div class="container">
             <p>&copy; JMGV-PTEL <span id="current-year">2025</span>. Todos los derechos reservados.</p>
         </div>

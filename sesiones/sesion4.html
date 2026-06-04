@@ -47,17 +47,17 @@
     </style>
 </head>
 <body>
-    <header>
+    <header class="main-header">
         <div class="container">
             <h1>Curso de Cisco Packet Tracer</h1>
-            <p>Sesión 4: Direccionamiento IP y Subredes</p>
+            <p class="subtitle">Sesión 4: Direccionamiento IP y Subredes</p>
         </div>
     </header>
 
-    <nav class="session-nav">
+    <nav class="session-nav" aria-label="Navegación de la sesión">
         <div class="container">
             <a href="../index.html" class="nav-home">Inicio</a>
-            <span class="nav-current">Sesión 4</span>
+            <span class="nav-current" aria-current="page">Sesión 4</span>
         </div>
     </nav>
 
@@ -168,7 +168,7 @@
                     </ol>
                     
                     <div class="solution">
-                        <button class="show-solution">Mostrar Solución</button>
+                        <button class="show-solution" aria-expanded="false">Mostrar Solución</button>
                         <div class="solution-content">
                             <p>Para crear 4 subredes necesitamos 2 bits (2² = 4).</p>
                             <p>Máscara original: 255.255.255.0 (/24)</p>
@@ -196,7 +196,7 @@
                     </ol>
                     
                     <div class="solution">
-                        <button class="show-solution">Comandos de Configuración</button>
+                        <button class="show-solution" aria-expanded="false">Comandos de Configuración</button>
                         <div class="solution-content">
                             <p>Configuración del router:</p>
                             <pre><code>enable
@@ -228,7 +228,7 @@ copy running-config startup-config
         </section>
     </main>
 
-    <footer>
+    <footer class="main-footer">
         <div class="container">
             <p>&copy; JMGV-PTEL <span id="current-year">2025</span>. Todos los derechos reservados.</p>
         </div>
