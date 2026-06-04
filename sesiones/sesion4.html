@@ -221,6 +221,26 @@ copy running-config startup-config
             <h3>Resumen de la Sesión</h3>
             <p>En esta sesión has aprendido sobre direccionamiento IPv4, clases de direcciones IP, y cómo crear y configurar subredes. Has practicado el cálculo de subredes y la configuración de dispositivos en diferentes subredes.</p>
 
+            
+            <section class="quiz-section" aria-labelledby="quiz-title">
+                <h2 id="quiz-title">🧠 Demuestra tu Conocimiento</h2>
+                <p>Responde este quiz interactivo de 5 preguntas sobre la sesión actual.</p>
+                
+                <div id="quiz-container" class="quiz-container">
+                    <div id="question-header" class="question-header">
+                        <span id="question-counter" class="badge">Pregunta 1 de 5</span>
+                    </div>
+                    <h3 id="question-text">Cargando pregunta...</h3>
+                    <div id="answer-buttons" class="btn-grid">
+                        <!-- Los botones se inyectan por JS -->
+                    </div>
+                    <div id="score-container" class="is-hidden">
+                        <h3 id="final-score"></h3>
+                        <button id="restart-btn" class="btn">Reintentar Quiz</button>
+                    </div>
+                </div>
+            </section>
+
             <div class="navigation-buttons">
                 <a href="sesion3.html" class="btn btn-prev">← Sesión Anterior</a>
                 <a href="sesion5.html" class="btn btn-next">Siguiente Sesión →</a>
@@ -235,6 +255,7 @@ copy running-config startup-config
     </footer>
 
     <script src="../js/script.js"></script>
+    <script src="../js/quizData.js"></script>
     <script src="../js/session.js"></script>
     <script>
         function calculateSubnet() {

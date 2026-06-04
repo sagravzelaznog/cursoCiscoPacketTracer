@@ -331,6 +331,26 @@ access-list 100 permit ip 172.16.0.0 0.0.255.255 192.168.1.0 0.0.0.255</div>
             <h3>¡Felicidades por completar el curso!</h3>
             <p>Has llegado al final del curso de Cisco Packet Tracer. El proyecto final te ha permitido integrar todos los conceptos aprendidos a lo largo de las sesiones. Continúa practicando y explorando nuevas configuraciones para fortalecer tus habilidades en redes de computadoras.</p>
 
+            
+            <section class="quiz-section" aria-labelledby="quiz-title">
+                <h2 id="quiz-title">🧠 Demuestra tu Conocimiento</h2>
+                <p>Responde este quiz interactivo de 5 preguntas sobre la sesión actual.</p>
+                
+                <div id="quiz-container" class="quiz-container">
+                    <div id="question-header" class="question-header">
+                        <span id="question-counter" class="badge">Pregunta 1 de 5</span>
+                    </div>
+                    <h3 id="question-text">Cargando pregunta...</h3>
+                    <div id="answer-buttons" class="btn-grid">
+                        <!-- Los botones se inyectan por JS -->
+                    </div>
+                    <div id="score-container" class="is-hidden">
+                        <h3 id="final-score"></h3>
+                        <button id="restart-btn" class="btn">Reintentar Quiz</button>
+                    </div>
+                </div>
+            </section>
+
             <div class="navigation-buttons">
                 <a href="sesion9.html" class="btn btn-prev">← Sesión Anterior</a>
                 <a href="../index.html" class="btn btn-next">Volver al Inicio →</a>
@@ -345,6 +365,7 @@ access-list 100 permit ip 172.16.0.0 0.0.255.255 192.168.1.0 0.0.0.255</div>
     </footer>
 
     <script src="../js/script.js"></script>
+    <script src="../js/quizData.js"></script>
     <script src="../js/session.js"></script>
     <script>
         // Mostrar el año actual en el footer

@@ -160,6 +160,26 @@
             <h3>Resumen de la Sesión</h3>
             <p>En esta sesión has aprendido sobre los modelos OSI y TCP/IP, sus capas y funciones. Has practicado la visualización de paquetes en Packet Tracer, lo que te ha permitido ver cómo se encapsulan los datos a través de las diferentes capas de red.</p>
 
+            
+            <section class="quiz-section" aria-labelledby="quiz-title">
+                <h2 id="quiz-title">🧠 Demuestra tu Conocimiento</h2>
+                <p>Responde este quiz interactivo de 5 preguntas sobre la sesión actual.</p>
+                
+                <div id="quiz-container" class="quiz-container">
+                    <div id="question-header" class="question-header">
+                        <span id="question-counter" class="badge">Pregunta 1 de 5</span>
+                    </div>
+                    <h3 id="question-text">Cargando pregunta...</h3>
+                    <div id="answer-buttons" class="btn-grid">
+                        <!-- Los botones se inyectan por JS -->
+                    </div>
+                    <div id="score-container" class="is-hidden">
+                        <h3 id="final-score"></h3>
+                        <button id="restart-btn" class="btn">Reintentar Quiz</button>
+                    </div>
+                </div>
+            </section>
+
             <div class="navigation-buttons">
                 <a href="sesion1.html" class="btn btn-prev">← Sesión Anterior</a>
                 <a href="sesion3.html" class="btn btn-next">Siguiente Sesión →</a>
@@ -174,6 +194,7 @@
     </footer>
 
     <script src="../js/script.js"></script>
+    <script src="../js/quizData.js"></script>
     <script src="../js/session.js"></script>
 </body>
 </html>

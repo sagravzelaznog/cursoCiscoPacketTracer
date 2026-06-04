@@ -192,6 +192,26 @@ show ip route          # Muestra la tabla de enrutamiento
             <h3>Resumen de la Sesión</h3>
             <p>En esta sesión has aprendido sobre los dispositivos de red básicos, sus funciones y cómo configurarlos en Packet Tracer. Has practicado la configuración básica de switches y routers, y has verificado la conectividad entre dispositivos.</p>
 
+            
+            <section class="quiz-section" aria-labelledby="quiz-title">
+                <h2 id="quiz-title">🧠 Demuestra tu Conocimiento</h2>
+                <p>Responde este quiz interactivo de 5 preguntas sobre la sesión actual.</p>
+                
+                <div id="quiz-container" class="quiz-container">
+                    <div id="question-header" class="question-header">
+                        <span id="question-counter" class="badge">Pregunta 1 de 5</span>
+                    </div>
+                    <h3 id="question-text">Cargando pregunta...</h3>
+                    <div id="answer-buttons" class="btn-grid">
+                        <!-- Los botones se inyectan por JS -->
+                    </div>
+                    <div id="score-container" class="is-hidden">
+                        <h3 id="final-score"></h3>
+                        <button id="restart-btn" class="btn">Reintentar Quiz</button>
+                    </div>
+                </div>
+            </section>
+
             <div class="navigation-buttons">
                 <a href="sesion2.html" class="btn btn-prev">← Sesión Anterior</a>
                 <a href="sesion4.html" class="btn btn-next">Siguiente Sesión →</a>
@@ -206,6 +226,7 @@ show ip route          # Muestra la tabla de enrutamiento
     </footer>
 
     <script src="../js/script.js"></script>
+    <script src="../js/quizData.js"></script>
     <script src="../js/session.js"></script>
 </body>
 </html>
