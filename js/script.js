@@ -1,5 +1,7 @@
-// Datos del curso - sesiones
-const sessions = [
+// ==========================================================================
+// Base de Datos de Sesiones (Simulada)
+// ==========================================================================
+const SESSIONS_DATA = [
     {
         id: 1,
         title: 'Introducción a Redes',
@@ -72,36 +74,66 @@ const sessions = [
     }
 ];
 
-// Función para cargar las sesiones en la página
-function loadSessions() {
+// ==========================================================================
+// Lógica de Renderizado y UI
+// ==========================================================================
+
+/**
+ * Renderiza la tarjeta de una sesión en el DOM.
+ * @param {Object} session - Objeto con los datos de la sesión.
+ * @returns {HTMLElement} Elemento HTML de la tarjeta de sesión.
+ */
+const createSessionCard = ({ id, title, description, duration, file }) => {
+    const article = document.createElement('article');
+    article.className = 'session-card';
+    article.setAttribute('role', 'listitem');
+    
+    article.innerHTML = `
+        <h3>Sesión ${id}: ${title}</h3>
+        <p>${description}</p>
+        <p class="session-meta"><strong>⏱ Duración:</strong> ${duration}</p>
+        <a href="${file}" class="btn" aria-label="Comenzar sesión ${id}: ${title}">Comenzar</a>
+    `;
+    
+    return article;
+};
+
+/**
+ * Inicializa y carga la lista de sesiones en el contenedor principal.
+ */
+const loadSessions = () => {
     const sessionsList = document.getElementById('sessions-list');
-    
-    if (sessionsList) {
-        sessions.forEach(session => {
-            const sessionElement = document.createElement('div');
-            sessionElement.className = 'session-card';
-            sessionElement.innerHTML = `
-                <h3>Sesión ${session.id}: ${session.title}</h3>
-                <p>${session.description}</p>
-                <p><strong>Duración:</strong> ${session.duration}</p>
-                <a href="${session.file}" class="btn">Comenzar</a>
-            `;
-            sessionsList.appendChild(sessionElement);
-        });
-    }
-}
+    if (!sessionsList) return;
 
-// Función para inicializar la página
-function init() {
-    loadSessions();
+    // Fragmento para optimizar la inserción en el DOM
+    const fragment = document.createDocumentFragment();
     
-    // Añadir el año actual al footer
-    const yearElement = document.querySelector('footer p');
+    SESSIONS_DATA.forEach(session => {
+        fragment.appendChild(createSessionCard(session));
+    });
+
+    sessionsList.appendChild(fragment);
+};
+
+/**
+ * Actualiza el año dinámicamente en el pie de página.
+ */
+const updateFooterYear = () => {
+    const yearElement = document.getElementById('current-year');
     if (yearElement) {
-        const currentYear = new Date().getFullYear();
-        yearElement.textContent = `© JMGV-PTEL ${currentYear}. Todos los derechos reservados.`;
+        yearElement.textContent = new Date().getFullYear();
     }
-}
+};
 
-// Esperar a que el DOM esté completamente cargado
-document.addEventListener('DOMContentLoaded', init);
+/**
+ * Función principal de inicialización.
+ */
+const initializeApp = () => {
+    loadSessions();
+    updateFooterYear();
+};
+
+// ==========================================================================
+// Event Listeners
+// ==========================================================================
+document.addEventListener('DOMContentLoaded', initializeApp);
