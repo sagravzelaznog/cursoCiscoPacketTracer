@@ -146,12 +146,46 @@ const initTooltips = () => {
 };
 
 // ==========================================================================
+// Módulo de Autenticación Simple
+// ==========================================================================
+
+const checkLogin = () => {
+    let studentName = localStorage.getItem('studentName');
+    
+    if (!studentName) {
+        // Crear modal dinámico de login
+        const modalHtml = `
+            <div id="login-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 9999;">
+                <div style="background: white; padding: 2rem; border-radius: 8px; width: 90%; max-width: 400px; text-align: center;">
+                    <h2 style="margin-bottom: 1rem; color: #0066cc;">Bienvenido al Curso</h2>
+                    <p style="margin-bottom: 1.5rem;">Para registrar tu progreso y descargar tus reportes, por favor ingresa tu nombre completo.</p>
+                    <input type="text" id="student-name-input" placeholder="Ej. Juan Pérez" style="width: 100%; padding: 0.75rem; margin-bottom: 1.5rem; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;">
+                    <button id="save-name-btn" class="btn" style="width: 100%;">Ingresar</button>
+                </div>
+            </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+        
+        document.getElementById('save-name-btn').addEventListener('click', () => {
+            const input = document.getElementById('student-name-input').value.trim();
+            if (input.length > 2) {
+                localStorage.setItem('studentName', input);
+                document.getElementById('login-modal').remove();
+            } else {
+                alert("Por favor ingresa un nombre válido.");
+            }
+        });
+    }
+};
+
+// ==========================================================================
 // Módulo del Quiz Interactivo
 // ==========================================================================
 
 let currentQuestionIndex = 0;
 let score = 0;
 let currentQuizData = null;
+let userResponses = [];
 
 const initQuiz = () => {
     const quizContainer = document.getElementById('quiz-container');
@@ -173,11 +207,16 @@ const initQuiz = () => {
 const startQuiz = () => {
     currentQuestionIndex = 0;
     score = 0;
+    userResponses = [];
     
     document.getElementById('score-container').classList.add('is-hidden');
     document.getElementById('answer-buttons').classList.remove('is-hidden');
     document.getElementById('question-text').classList.remove('is-hidden');
     document.getElementById('question-header').classList.remove('is-hidden');
+    
+    // Remover botón de PDF si existe de un intento anterior
+    const oldPdfBtn = document.getElementById('download-pdf-btn');
+    if (oldPdfBtn) oldPdfBtn.remove();
     
     setNextQuestion();
 };
@@ -222,10 +261,20 @@ const resetState = () => {
 const selectAnswer = (e) => {
     const selectedButton = e.target;
     const isCorrect = selectedButton.dataset.correct === 'true';
+    const currentQuestionData = currentQuizData[currentQuestionIndex];
     
     if (isCorrect) {
         score++;
     }
+    
+    // Registrar la respuesta del usuario
+    const correctAnswerText = currentQuestionData.answers.find(a => a.correct).text;
+    userResponses.push({
+        pregunta: currentQuestionData.question,
+        respuestaSeleccionada: selectedButton.textContent,
+        respuestaCorrecta: correctAnswerText,
+        esCorrecto: isCorrect
+    });
     
     currentQuestionIndex++;
     if (currentQuestionIndex < currentQuizData.length) {
@@ -233,6 +282,77 @@ const selectAnswer = (e) => {
     } else {
         showScore();
     }
+};
+
+const generatePDF = () => {
+    if (typeof window.jspdf === 'undefined') {
+        alert("La librería PDF no se ha cargado correctamente.");
+        return;
+    }
+    
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    
+    const studentName = localStorage.getItem('studentName') || 'Estudiante Anónimo';
+    const currentSession = getCurrentSessionNumber();
+    const sessionTitle = SESSION_TITLES[currentSession];
+    
+    // Título
+    doc.setFontSize(20);
+    doc.setTextColor(0, 102, 204); // color-primary
+    doc.text(`Reporte de Evaluación - Sesión ${currentSession}`, 14, 22);
+    
+    // Datos del Estudiante
+    doc.setFontSize(12);
+    doc.setTextColor(51, 65, 85);
+    doc.text(`Estudiante: ${studentName}`, 14, 32);
+    doc.text(`Tema: ${sessionTitle}`, 14, 40);
+    doc.text(`Calificación Final: ${score} / ${currentQuizData.length}`, 14, 48);
+    
+    // Generar Tabla
+    const tableData = userResponses.map((r, i) => [
+        i + 1,
+        r.pregunta,
+        r.respuestaSeleccionada,
+        r.respuestaCorrecta,
+        r.esCorrecto ? 'Correcto' : 'Incorrecto'
+    ]);
+    
+    doc.autoTable({
+        startY: 55,
+        head: [['#', 'Pregunta', 'Tu Respuesta', 'Respuesta Correcta', 'Estado']],
+        body: tableData,
+        styles: { fontSize: 9, cellPadding: 3 },
+        headStyles: { fillColor: [0, 102, 204] },
+        columnStyles: { 
+            1: { cellWidth: 50 },
+            2: { cellWidth: 40 },
+            3: { cellWidth: 40 }
+        },
+        didParseCell: function(data) {
+            // Colorear verde o rojo el estado
+            if (data.section === 'body' && data.column.index === 4) {
+                if (data.cell.raw === 'Correcto') {
+                    data.cell.styles.textColor = [16, 185, 129]; // Verde
+                    data.cell.styles.fontStyle = 'bold';
+                } else {
+                    data.cell.styles.textColor = [226, 27, 60]; // Rojo
+                    data.cell.styles.fontStyle = 'bold';
+                }
+            }
+        }
+    });
+    
+    // Pie de página
+    const pageCount = doc.internal.getNumberOfPages();
+    for (let i = 1; i <= pageCount; i++) {
+        doc.setPage(i);
+        doc.setFontSize(8);
+        doc.text(`Generado el ${new Date().toLocaleDateString()} - Curso Cisco Packet Tracer`, 14, doc.internal.pageSize.height - 10);
+    }
+    
+    // Descargar
+    doc.save(`Reporte_Sesion${currentSession}_${studentName.replace(/ /g, '_')}.pdf`);
 };
 
 const showScore = () => {
@@ -254,12 +374,31 @@ const showScore = () => {
     else mensaje = "No te rindas, repasa la teoría e inténtalo de nuevo. 💻";
     
     finalScoreElement.innerHTML = `Acertaste ${score} de ${currentQuizData.length} preguntas.<br><br>${mensaje}`;
+    
+    // Crear y añadir botón de PDF
+    const downloadPdfBtn = document.createElement('button');
+    downloadPdfBtn.id = 'download-pdf-btn';
+    downloadPdfBtn.textContent = 'Descargar Reporte PDF';
+    downloadPdfBtn.className = 'btn';
+    downloadPdfBtn.style.marginTop = '1rem';
+    downloadPdfBtn.style.marginLeft = '1rem';
+    downloadPdfBtn.style.backgroundColor = '#10b981'; // Verde para destacar
+    downloadPdfBtn.addEventListener('click', generatePDF);
+    
+    scoreContainer.appendChild(downloadPdfBtn);
+    
+    // Guardar en Firebase Base de Datos
+    if (typeof saveResultToDatabase === 'function') {
+        const studentName = localStorage.getItem('studentName') || 'Anónimo';
+        saveResultToDatabase(studentName, getCurrentSessionNumber(), score, currentQuizData.length, userResponses);
+    }
 };
 
 /**
  * Inicializador principal de la página de sesión.
  */
 const initSessionPage = () => {
+    checkLogin();
     initSolutionToggles();
     updateNavigationLinks();
     highlightCode();
