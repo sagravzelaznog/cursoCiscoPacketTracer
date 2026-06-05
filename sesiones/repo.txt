@@ -1,0 +1,7 @@
+git init
+git branch -M main
+git remote add origin https://github.com/sagravzelaznog/cursoCiscoPacketTracer.git
+git add .
+git commit -m "primer commit"
+git push -u origin main
+https://jmgv-ptel-cursociscopacket.netlify.app/
