@@ -1,25 +1,21 @@
-// Configuración de Firebase
-// TODO: Reemplaza este objeto con el de tu proyecto de Firebase
+// Configuración de Firebase para CDN (Compat)
 const firebaseConfig = {
-    apiKey: "TU_API_KEY",
-    authDomain: "tu-proyecto.firebaseapp.com",
-    projectId: "tu-proyecto",
-    storageBucket: "tu-proyecto.appspot.com",
-    messagingSenderId: "TU_SENDER_ID",
-    appId: "TU_APP_ID"
+    apiKey: "AIzaSyC08vUkWdQ9Ad3PaXS0uZ0yu_EWWBaq-aQ",
+    authDomain: "acceso-a-cursos-4a314.firebaseapp.com",
+    projectId: "acceso-a-cursos-4a314",
+    storageBucket: "acceso-a-cursos-4a314.firebasestorage.app",
+    messagingSenderId: "851856735092",
+    appId: "1:851856735092:web:04290714cb63e4244c4a21",
+    measurementId: "G-ZG280G922Y"
 };
 
-// Inicializar Firebase (Verificando que las credenciales no sean las de relleno)
 let db = null;
 
 try {
-    if (firebaseConfig.apiKey !== "TU_API_KEY") {
-        firebase.initializeApp(firebaseConfig);
-        db = firebase.firestore();
-        console.log("Firebase inicializado correctamente.");
-    } else {
-        console.warn("Firebase no está configurado. Por favor añade tus credenciales en js/firebase-config.js");
-    }
+    // Inicializar Firebase usando el objeto global `firebase` inyectado por los CDNs
+    firebase.initializeApp(firebaseConfig);
+    db = firebase.firestore();
+    console.log("Firebase inicializado correctamente con tus credenciales.");
 } catch (error) {
     console.error("Error inicializando Firebase:", error);
 }
@@ -34,7 +30,7 @@ try {
  */
 const saveResultToDatabase = async (userName, sessionNum, score, totalQuestions, resultsData) => {
     if (!db) {
-        console.warn("No se puede guardar el resultado: Firebase no está configurado.");
+        console.warn("No se puede guardar el resultado: Firebase no está configurado o falló al iniciar.");
         return;
     }
 
@@ -49,6 +45,6 @@ const saveResultToDatabase = async (userName, sessionNum, score, totalQuestions,
         });
         console.log("Resultado guardado en la base de datos con éxito.");
     } catch (e) {
-        console.error("Error al guardar en la base de datos: ", e);
+        console.error("Error al guardar en la base de datos (revisa las reglas de Firestore): ", e);
     }
 };
