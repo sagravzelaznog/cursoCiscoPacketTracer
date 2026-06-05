@@ -146,39 +146,6 @@ const initTooltips = () => {
 };
 
 // ==========================================================================
-// Módulo de Autenticación Simple
-// ==========================================================================
-
-const checkLogin = () => {
-    let studentName = localStorage.getItem('studentName');
-    
-    if (!studentName) {
-        // Crear modal dinámico de login
-        const modalHtml = `
-            <div id="login-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 9999;">
-                <div style="background: white; padding: 2rem; border-radius: 8px; width: 90%; max-width: 400px; text-align: center;">
-                    <h2 style="margin-bottom: 1rem; color: #0066cc;">Bienvenido al Curso</h2>
-                    <p style="margin-bottom: 1.5rem;">Para registrar tu progreso y descargar tus reportes, por favor ingresa tu nombre completo.</p>
-                    <input type="text" id="student-name-input" placeholder="Ej. Juan Pérez" style="width: 100%; padding: 0.75rem; margin-bottom: 1.5rem; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;">
-                    <button id="save-name-btn" class="btn" style="width: 100%;">Ingresar</button>
-                </div>
-            </div>
-        `;
-        document.body.insertAdjacentHTML('beforeend', modalHtml);
-        
-        document.getElementById('save-name-btn').addEventListener('click', () => {
-            const input = document.getElementById('student-name-input').value.trim();
-            if (input.length > 2) {
-                localStorage.setItem('studentName', input);
-                document.getElementById('login-modal').remove();
-            } else {
-                alert("Por favor ingresa un nombre válido.");
-            }
-        });
-    }
-};
-
-// ==========================================================================
 // Módulo del Quiz Interactivo
 // ==========================================================================
 
@@ -293,7 +260,8 @@ const generatePDF = () => {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     
-    const studentName = localStorage.getItem('studentName') || 'Estudiante Anónimo';
+    const user = firebase.auth().currentUser;
+    const studentName = user ? (user.displayName || user.email) : 'Estudiante';
     const currentSession = getCurrentSessionNumber();
     const sessionTitle = SESSION_TITLES[currentSession];
     
@@ -389,7 +357,8 @@ const showScore = () => {
     
     // Guardar en Firebase Base de Datos
     if (typeof saveResultToDatabase === 'function') {
-        const studentName = localStorage.getItem('studentName') || 'Anónimo';
+        const user = firebase.auth().currentUser;
+        const studentName = user ? (user.displayName || user.email) : 'Anónimo';
         saveResultToDatabase(studentName, getCurrentSessionNumber(), score, currentQuizData.length, userResponses);
     }
 };
@@ -398,7 +367,6 @@ const showScore = () => {
  * Inicializador principal de la página de sesión.
  */
 const initSessionPage = () => {
-    checkLogin();
     initSolutionToggles();
     updateNavigationLinks();
     highlightCode();
